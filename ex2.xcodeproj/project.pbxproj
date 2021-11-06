@@ -12,6 +12,7 @@
 		754B41E72735208500EED541 /* Board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 754B41E52735208500EED541 /* Board.cpp */; };
 		754B4200273542BC00EED541 /* King.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 754B41FE273542BC00EED541 /* King.cpp */; };
 		754B42032735491C00EED541 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 754B42012735491C00EED541 /* Player.cpp */; };
+		754B42062735E66100EED541 /* Location.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 754B42042735E66100EED541 /* Location.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +41,9 @@
 		754B41FF273542BC00EED541 /* King.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = King.hpp; sourceTree = "<group>"; };
 		754B42012735491C00EED541 /* Player.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
 		754B42022735491C00EED541 /* Player.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Player.hpp; sourceTree = "<group>"; };
+		754B42042735E66100EED541 /* Location.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Location.cpp; sourceTree = "<group>"; };
+		754B42052735E66100EED541 /* Location.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Location.hpp; sourceTree = "<group>"; };
+		754B42072735F39700EED541 /* Level3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = Level3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 				754B41E027351FAD00EED541 /* Controller.hpp */,
 				754B41FF273542BC00EED541 /* King.hpp */,
 				754B42022735491C00EED541 /* Player.hpp */,
+				754B42052735E66100EED541 /* Location.hpp */,
 				754B41E62735208500EED541 /* Board.hpp */,
 			);
 			path = include;
@@ -95,6 +100,7 @@
 			children = (
 				754B41DF27351FAD00EED541 /* Controller.cpp */,
 				754B41E52735208500EED541 /* Board.cpp */,
+				754B42042735E66100EED541 /* Location.cpp */,
 				754B42012735491C00EED541 /* Player.cpp */,
 				754B41FE273542BC00EED541 /* King.cpp */,
 				75317DE0273170C90044F320 /* main.cpp */,
@@ -108,6 +114,7 @@
 				754B41DD2734576200EED541 /* Levels */,
 				754B41DE27345B7100EED541 /* Level1 */,
 				754B41DC2732F83E00EED541 /* Level2 */,
+				754B42072735F39700EED541 /* Level3 */,
 			);
 			path = rcs;
 			sourceTree = "<group>";
@@ -173,6 +180,7 @@
 				75317DE1273170C90044F320 /* main.cpp in Sources */,
 				754B4200273542BC00EED541 /* King.cpp in Sources */,
 				754B41E127351FAD00EED541 /* Controller.cpp in Sources */,
+				754B42062735E66100EED541 /* Location.cpp in Sources */,
 				754B42032735491C00EED541 /* Player.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

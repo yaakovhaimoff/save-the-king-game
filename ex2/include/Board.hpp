@@ -13,6 +13,7 @@ class Board
 public:
     void printBoard(int);
     void getLinesFromFiles(int);
+    std::vector<std::string> getBoard(int);
     //    void clear();
 private:
     std::ifstream m_boardSrcFiles;

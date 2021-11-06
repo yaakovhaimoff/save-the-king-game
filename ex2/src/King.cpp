@@ -1,14 +1,20 @@
 #include "King.hpp"
 
-King::King()
+King::King(): m_KingLocation(0, 0)
+{}
+//bool King::isKingValid()
+//{
+//    return true;
+//}
+//void King::moveKingInBoard(char)
+//{
+//
+//}
+void King::setLocation(const Location &location)
 {
-    
+    m_KingLocation = location;
 }
-bool King::isKingValid()
+Location King::getKingLocation()
 {
-    return true;
-}
-void King::moveKingInBoard(char)
-{
-    
+    return m_KingLocation;
 }

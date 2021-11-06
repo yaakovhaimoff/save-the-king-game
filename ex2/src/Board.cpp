@@ -8,21 +8,25 @@ using std::string;
 using std::vector;
 
 // _____________________________________
-void Board::getLinesFromFiles(int count)
+void Board::getLinesFromFiles(int index)
 {
-    if(count==0)
+    if(index==0)
         m_boardSrcFiles.open("rcs/Levels");
-    getline(m_boardSrcFiles, m_levelName[count]);
-    m_level[count].open(m_levelName[count]);
+    getline(m_boardSrcFiles, m_levelName[index]);
+    m_level[index].open(m_levelName[index]);
     //     Read a file line-by-line
-    for (auto line = std::string(); std::getline(m_level[count],line);)
+    for (auto line = std::string(); std::getline(m_level[index],line);)
     {
-        m_textBoard[count].push_back(line);
+        m_textBoard[index].push_back(line);
     }
 }
 
-void Board::printBoard(int count)
+void Board::printBoard(int index)
 {
-    for (int row = 0; row < m_textBoard[count].size(); row++)
-        cout << m_textBoard[count][row] << endl;
+    for (int row = 0; row < m_textBoard[index].size(); row++)
+        cout << m_textBoard[index][row] << endl;
+}
+std::vector<std::string> Board::getBoard(int index)
+{
+    return m_textBoard[index];
 }
