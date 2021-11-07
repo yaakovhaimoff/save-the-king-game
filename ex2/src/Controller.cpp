@@ -100,22 +100,22 @@ void Controller::handleSpecialKey(int activePlayer, int index)
 	{
 	case KB_Up:
 		// Arrow Up pressed
-		movePlayerInBoard(activePlayer, -1, 0);
+		movePlayerInBoard(index, activePlayer, -1, 0);
 		break;
 
 	case KB_Down:
 		// Arrow Down pressed
-		movePlayerInBoard(activePlayer, 1, 0);
+		movePlayerInBoard(index, activePlayer, 1, 0);
 		break;
 
 	case KB_Left:
 		// Arrow Left pressed
-		movePlayerInBoard(activePlayer, 0, -1);
+		movePlayerInBoard(index, activePlayer, 0, -1);
 		break;
 
 	case KB_Right:
 		// Arrow Right pressed
-		movePlayerInBoard(activePlayer, 0, 1);
+		movePlayerInBoard(index, activePlayer, 0, 1);
 		break;
 	}
 }
@@ -135,7 +135,7 @@ bool Controller::handleKeyBoardKey(int c)
 
 	return false;
 }
-void Controller::movePlayerInBoard(int player, int row, int col)
+void Controller::movePlayerInBoard(int index, int player, int row, int col)
 {
 	switch (player)
 	{
@@ -145,19 +145,19 @@ void Controller::movePlayerInBoard(int player, int row, int col)
 		m_King.setLocation(Location(m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col));
 		break;
 	case MAGE:
-		m_board.changeBoardItem(index, m_King.getMageLocation().getRow() + row, m_King.getMageLocation().getCol() + col, player);
-		m_board.changeBoardItem(index, m_King.getMageLocation().getRow(), m_King.getMageLocation().getCol(), Space);
-		m_King.setLocation(Location(m_King.getMageLocation().getRow() + row, m_King.getMageLocation().getCol()));
+		m_board.changeBoardItem(index, m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col, player);
+		m_board.changeBoardItem(index, m_Mage.getMageLocation().getRow(), m_Mage.getMageLocation().getCol(), Space);
+		m_Mage.setLocation(Location(m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol()));
 		break;
 	case WARRIOR:
-		m_board.changeBoardItem(index, m_King.getWarriorLocation().getRow() + row, m_King.getWarriorLocation().getCol() + col, player);
-		m_board.changeBoardItem(index, m_King.getWarriorLocation().getRow(), m_King.getWarriorLocation().getCol(), Space);
-		m_King.setLocation(Location(m_King.getWarriorLocation().getRow() + row, m_King.getWarriorLocation().getCol() + col));
+		m_board.changeBoardItem(index, m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col, player);
+		m_board.changeBoardItem(index, m_Warrior.getWarriorLocation().getRow(), m_Warrior.getWarriorLocation().getCol(), Space);
+		m_Warrior.setLocation(Location(m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col));
 		break;
 	case TILE:
-		m_board.changeBoardItem(index, m_King.getTileLocation().getRow() + row, m_King.getTileLocation().getCol() + col, player);
-		m_board.changeBoardItem(index, m_King.getKingLocation().getRow(), m_King.getTileLocation().getCol(), Space);
-		m_King.setLocation(Location(m_King.getTileLocation().getRow() + row, m_King.getTileLocation().getCol() + col));
+		m_board.changeBoardItem(index, m_Tile.getTileLocation().getRow() + row, m_Tile.getTileLocation().getCol() + col, player);
+		m_board.changeBoardItem(index, m_Tile.getKingLocation().getRow(), m_Tile.getTileLocation().getCol(), Space);
+		m_Tile.setLocation(Location(m_Tile.getTileLocation().getRow() + row, m_Tile.getTileLocation().getCol() + col));
 		break;
 	}
 	std::system("cls");
