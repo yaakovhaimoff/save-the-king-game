@@ -1,4 +1,5 @@
 #include <stdio.h>
+#pragma once
 
 struct Location
 {

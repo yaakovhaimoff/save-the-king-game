@@ -7,6 +7,7 @@
 #include <conio.h>
 #include <Windows.h>
 
+// include files
 #include "Board.hpp"
 #include "King.hpp"
 #include "Player.hpp"

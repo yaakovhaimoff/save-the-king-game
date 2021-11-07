@@ -135,6 +135,7 @@ bool Controller::handleKeyBoardKey(int c)
 
 	return false;
 }
+//_________________________________________________________________________
 void Controller::movePlayerInBoard(int index, int player, int row, int col)
 {
 	switch (player)
@@ -156,7 +157,7 @@ void Controller::movePlayerInBoard(int index, int player, int row, int col)
 		break;
 	case TILE:
 		m_board.changeBoardItem(index, m_Tile.getTileLocation().getRow() + row, m_Tile.getTileLocation().getCol() + col, player);
-		m_board.changeBoardItem(index, m_Tile.getKingLocation().getRow(), m_Tile.getTileLocation().getCol(), Space);
+		m_board.changeBoardItem(index, m_Tile.getTileLocation().getRow(), m_Tile.getTileLocation().getCol(), Space);
 		m_Tile.setLocation(Location(m_Tile.getTileLocation().getRow() + row, m_Tile.getTileLocation().getCol() + col));
 		break;
 	}

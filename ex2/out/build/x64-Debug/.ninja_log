@@ -1,8 +1,18 @@
 # ninja log v5
-0	702	6579875183986617	CMakeFiles/ex2_yaakov.dir/src/Location.cpp.obj	cff14dc49c1fa831
-9	739	6579875185053767	CMakeFiles/ex2_yaakov.dir/src/Player.cpp.obj	477a684f08ae0070
-7	1412	6579875191875539	CMakeFiles/ex2_yaakov.dir/src/King.cpp.obj	f864f24a90d403a1
-12	1811	6579875196014457	CMakeFiles/ex2_yaakov.dir/src/Board.cpp.obj	6c2e13e92471ae37
-2435	3295	6579875209787639	ex2_yaakov.exe	2b4f9d972cbb0539
-5	2410	6579875201789027	CMakeFiles/ex2_yaakov.dir/src/main.cpp.obj	491b9ac12d26ecfc
-3	2433	6579875202327592	CMakeFiles/ex2_yaakov.dir/src/Controller.cpp.obj	7517652f90a6488d
+1	563	6580009419452941	CMakeFiles/ex2_yaakov.dir/src/Location.cpp.obj	cff14dc49c1fa831
+581	991	6580009423983083	CMakeFiles/ex2_yaakov.dir/src/Player.cpp.obj	477a684f08ae0070
+11	1326	6580009427263539	CMakeFiles/ex2_yaakov.dir/src/Tile.cpp.obj	96c1edfe398cb6e6
+8	1395	6580009427732171	CMakeFiles/ex2_yaakov.dir/src/King.cpp.obj	f864f24a90d403a1
+13	1774	6580009431168840	CMakeFiles/ex2_yaakov.dir/src/Board.cpp.obj	6c2e13e92471ae37
+992	2277	6580009436948687	CMakeFiles/ex2_yaakov.dir/src/Mage.cpp.obj	3bfed3d3cc0dc458
+1327	2396	6580009438198383	CMakeFiles/ex2_yaakov.dir/src/Warrior.cpp.obj	a35d4ef5dea2e892
+1	312	6580034994989126	CMakeFiles/ex2_yaakov.dir/src/Location.cpp.obj	cff14dc49c1fa831
+6	1177	6580035004049093	CMakeFiles/ex2_yaakov.dir/src/King.cpp.obj	f864f24a90d403a1
+12	1385	6580035006079775	CMakeFiles/ex2_yaakov.dir/src/Tile.cpp.obj	96c1edfe398cb6e6
+14	1414	6580035006548389	CMakeFiles/ex2_yaakov.dir/src/Warrior.cpp.obj	a35d4ef5dea2e892
+313	1521	6580035007798043	CMakeFiles/ex2_yaakov.dir/src/Mage.cpp.obj	3bfed3d3cc0dc458
+4	1991	6580035012328038	CMakeFiles/ex2_yaakov.dir/src/main.cpp.obj	491b9ac12d26ecfc
+9	2206	6580035014514915	CMakeFiles/ex2_yaakov.dir/src/Controller.cpp.obj	7517652f90a6488d
+2207	2797	6580035020138344	ex2_yaakov.exe	e1f3bab25a21fac0
+0	1580	6580035631699081	CMakeFiles/ex2_yaakov.dir/src/Controller.cpp.obj	7517652f90a6488d
+1581	2011	6580035635135627	ex2_yaakov.exe	e1f3bab25a21fac0
