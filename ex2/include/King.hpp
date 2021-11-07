@@ -7,13 +7,13 @@ class King
 {
 public:
     
-    King(Location);
+    King();
     bool isKingValid();
     void moveKingInBoard(char);
-    void setLocation(const Location &, int);
-    Location getKingLocation(int);
+    void setLocation(const Location &);
+    Location getKingLocation();
 
 private:
-    Location m_KingLocation[3];
+    Location m_KingLocation;
 
 };

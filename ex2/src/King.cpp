@@ -1,19 +1,17 @@
 #include "King.hpp"
 
 //___________________________________
-King::King(Location location) 
-    : m_KingLocation[0](0,0),
-m_KingLocation[1](0, 0), m_KingLocation[2](0, 0)
+King::King() : m_KingLocation(0,0)
 {}
 //_________________________________________________________
-void King::setLocation(const Location &location, int index)
+void King::setLocation(const Location &location)
 {
-    m_KingLocation[index] = location;
+    m_KingLocation = location;
 }
 //_______________________________________
-Location King::getKingLocation(int index)
+Location King::getKingLocation()
 {
-    return m_KingLocation[index];
+    return m_KingLocation;
 }
 //________________________
 //bool King::isKingValid()

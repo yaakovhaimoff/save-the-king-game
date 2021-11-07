@@ -20,16 +20,18 @@ void Board::getLinesFromFiles(int index)
         m_textBoard[index].push_back(line);
     }
 }
-
+//_______________________________
 void Board::printBoard(int index)
 {
     for (int row = 0; row < m_textBoard[index].size(); row++)
         cout << m_textBoard[index][row] << endl;
 }
+//_________________________________________________
 std::vector<std::string> Board::getBoard(int index)
 {
     return m_textBoard[index];
 }
+//__________________________________________________________________
 void Board::changeBoardItem(int index, int row, int col, int player)
 {
   m_textBoard[index][row][col] = player;

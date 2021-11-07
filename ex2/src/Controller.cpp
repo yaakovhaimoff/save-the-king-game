@@ -6,8 +6,17 @@ Controller::Controller()
 	for (int level = 0; level < amountOfLevels; level++)
 	{
 		m_board.getLinesFromFiles(level);
-		findPlayersLocation(level);
 	}
+}
+//________________________
+void Controller::runGame()
+{
+	for (int level = 0; level < amountOfLevels; level++)
+	{
+		findPlayersLocation(level);
+		m_board.printBoard(level);
+		playLevel(level);
+	}	
 }
 //_____________________________________________
 void Controller::findPlayersLocation(int index)
@@ -22,8 +31,7 @@ void Controller::findPlayersLocation(int index)
 			switch (c)
 			{
 			case KING:
-				m_King.setLocation(Location(row, col), index);
-				//std::cout << m_King.getKingLocation(index).getRow() << " " << m_King.getKingLocation(index).getCol() << std::endl;
+				m_King.setLocation(Location(row, col));
 				break;
 
 			default:
@@ -31,15 +39,6 @@ void Controller::findPlayersLocation(int index)
 			}
 		}
 	}
-}
-//________________________
-void Controller::runGame()
-{
-	for (int level = 0; level < amountOfLevels; level++)
-	{
-		m_board.printBoard(level);
-		playLevel(level);
-	}	
 }
 //________________________________________
 void Controller::playLevel(int indexLevel)
@@ -93,38 +92,38 @@ void Controller::handleSpecialKey(int activePlayer, int index)
 	{
 	case KB_Up:
 		// Arrow Up pressed
-		m_board.changeBoardItem(0, m_King.getKingLocation(index).getRow() - 1, m_King.getKingLocation(index).getCol(), activePlayer);
-		m_board.changeBoardItem(0, m_King.getKingLocation(index).getRow(), m_King.getKingLocation(index).getCol(), Space);
-		m_King.setLocation(Location(m_King.getKingLocation(index).getRow() - 1, m_King.getKingLocation(index).getCol()), index);
+		m_board.changeBoardItem(index, m_King.getKingLocation().getRow() - 1, m_King.getKingLocation().getCol(), activePlayer);
+		m_board.changeBoardItem(index, m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol(), Space);
+		m_King.setLocation(Location(m_King.getKingLocation().getRow() - 1, m_King.getKingLocation().getCol()));
 		std::system("cls");
-		m_board.printBoard(0);
+		m_board.printBoard(index);
 		break;
 
 	case KB_Down:
 		//Arrow Down pressed
-		m_board.changeBoardItem(0, m_King.getKingLocation(index).getRow() + 1, m_King.getKingLocation(index).getCol(), activePlayer);
-		m_board.changeBoardItem(0, m_King.getKingLocation(index).getRow(), m_King.getKingLocation(index).getCol(), Space);
-		m_King.setLocation(Location(m_King.getKingLocation(index).getRow() + 1, m_King.getKingLocation(index).getCol()), index);
+		m_board.changeBoardItem(index, m_King.getKingLocation().getRow() + 1, m_King.getKingLocation().getCol(), activePlayer);
+		m_board.changeBoardItem(index, m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol(), Space);
+		m_King.setLocation(Location(m_King.getKingLocation().getRow() + 1, m_King.getKingLocation().getCol()));
 		std::system("cls");
-		m_board.printBoard(0);
+		m_board.printBoard(index);
 		break;
 
 	case KB_Left:
 		//Arrow Left pressed
-		m_board.changeBoardItem(0, m_King.getKingLocation(index).getRow(), m_King.getKingLocation(index).getCol() - 1, activePlayer);
-		m_board.changeBoardItem(0, m_King.getKingLocation(index).getRow(), m_King.getKingLocation(index).getCol(), Space);
-		m_King.setLocation(Location(m_King.getKingLocation(index).getRow(), m_King.getKingLocation(index).getCol() - 1), index);
+		m_board.changeBoardItem(index, m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol() - 1, activePlayer);
+		m_board.changeBoardItem(index, m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol(), Space);
+		m_King.setLocation(Location(m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol() - 1));
 		std::system("cls");
-		m_board.printBoard(0);
+		m_board.printBoard(index);
 		break;
 
 	case KB_Right:
 		//Arrow Right pressed
-		m_board.changeBoardItem(0, m_King.getKingLocation(index).getRow(), m_King.getKingLocation(index).getCol() + 1, activePlayer);
-		m_board.changeBoardItem(0, m_King.getKingLocation(index).getRow(), m_King.getKingLocation(index).getCol(), Space);
-		m_King.setLocation(Location(m_King.getKingLocation(index).getRow(), m_King.getKingLocation(index).getCol() + 1), index);
+		m_board.changeBoardItem(index, m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol() + 1, activePlayer);
+		m_board.changeBoardItem(index, m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol(), Space);
+		m_King.setLocation(Location(m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol() + 1));
 		std::system("cls");
-		m_board.printBoard(0);
+		m_board.printBoard(index);
 		break;
 	}
 }
