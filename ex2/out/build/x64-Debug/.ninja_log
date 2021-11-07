@@ -1,0 +1,8 @@
+# ninja log v5
+0	702	6579875183986617	CMakeFiles/ex2_yaakov.dir/src/Location.cpp.obj	cff14dc49c1fa831
+9	739	6579875185053767	CMakeFiles/ex2_yaakov.dir/src/Player.cpp.obj	477a684f08ae0070
+7	1412	6579875191875539	CMakeFiles/ex2_yaakov.dir/src/King.cpp.obj	f864f24a90d403a1
+12	1811	6579875196014457	CMakeFiles/ex2_yaakov.dir/src/Board.cpp.obj	6c2e13e92471ae37
+2435	3295	6579875209787639	ex2_yaakov.exe	2b4f9d972cbb0539
+5	2410	6579875201789027	CMakeFiles/ex2_yaakov.dir/src/main.cpp.obj	491b9ac12d26ecfc
+3	2433	6579875202327592	CMakeFiles/ex2_yaakov.dir/src/Controller.cpp.obj	7517652f90a6488d
