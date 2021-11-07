@@ -9,7 +9,7 @@ class King
 public:
     
     King();
-    bool isKingMoveValid();
+    int isKingMoveValid(int);
     void setLocation(const Location &);
     Location getKingLocation();
 

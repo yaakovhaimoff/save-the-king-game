@@ -36,3 +36,8 @@ void Board::changeBoardItem(int index, int row, int col, int player)
 {
   m_textBoard[index][row][col] = player;
 }
+//__________________________________________________
+int Board::getBoardItem(int index, int row, int col)
+{
+    return m_textBoard[index][row][col];
+}

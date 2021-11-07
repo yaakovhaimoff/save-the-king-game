@@ -1,21 +1,38 @@
 #include "King.hpp"
+#include "gamesTools.hpp"
 
-//___________________________________
-King::King() : m_KingLocation(0,0)
+//________________________________
+King::King() : m_KingLocation(0, 0)
 {}
-//_________________________________________________________
-void King::setLocation(const Location &location)
+//______________________________________________
+void King::setLocation(const Location& location)
 {
-    m_KingLocation = location;
+	m_KingLocation = location;
 }
-//_______________________________________
+//______________________________
 Location King::getKingLocation()
 {
-    return m_KingLocation;
+	return m_KingLocation;
 }
-//________________________
-bool King::isKingMoveValid()
+//____________________________________
+int King::isKingMoveValid(int nextStep)
 {
-   return true;
+	switch (nextStep)
+	{
+	case Fire:
+	case Gate:
+	case Tile:
+	case Wall:
+		return DontDoNothing;
+	case Space:
+		return ContinueAndDelete;
+	case GateKey:
+		return ContinueAndSaveKey;
+	case Teleport:
+		return JumpToNext;
+	case Throne:
+		return GameOver;
+	}
+	return 1;
 }
 

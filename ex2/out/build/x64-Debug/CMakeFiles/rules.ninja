@@ -6,7 +6,7 @@
 # It is included in the main 'build.ninja'.
 
 # =============================================================================
-# Project: ex2_yaakov
+# Project: ex2
 # Configurations: Debug
 # =============================================================================
 # =============================================================================
@@ -18,17 +18,9 @@ msvc_deps_prefix = Note: including file:
 
 
 #############################################
-# Rule for running custom commands.
-
-rule CUSTOM_COMMAND
-  command = $COMMAND
-  description = $DESC
-
-
-#############################################
 # Rule for compiling CXX files.
 
-rule CXX_COMPILER__ex2_yaakov_Debug
+rule CXX_COMPILER__ex2_Debug
   deps = msvc
   command = C:\PROGRA~2\MICROS~2\2019\ENTERP~1\VC\Tools\MSVC\1429~1.301\bin\Hostx64\x64\cl.exe  /nologo /TP $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building CXX object $out
@@ -37,17 +29,25 @@ rule CXX_COMPILER__ex2_yaakov_Debug
 #############################################
 # Rule for linking CXX executable.
 
-rule CXX_EXECUTABLE_LINKER__ex2_yaakov_Debug
+rule CXX_EXECUTABLE_LINKER__ex2_Debug
   command = cmd.exe /C "$PRE_LINK && "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E vs_link_exe --intdir=$OBJECT_DIR --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\mt.exe --manifests $MANIFESTS -- C:\PROGRA~2\MICROS~2\2019\ENTERP~1\VC\Tools\MSVC\1429~1.301\bin\Hostx64\x64\link.exe /nologo $in  /out:$TARGET_FILE /implib:$TARGET_IMPLIB /pdb:$TARGET_PDB /version:0.0 $LINK_FLAGS $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
   description = Linking CXX executable $TARGET_FILE
   restat = $RESTAT
 
 
 #############################################
+# Rule for running custom commands.
+
+rule CUSTOM_COMMAND
+  command = $COMMAND
+  description = $DESC
+
+
+#############################################
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\yaakovha\Desktop\ex2_yaakov\ex2 -BC:\Users\yaakovha\Desktop\ex2_yaakov\ex2\out\build\x64-Debug
+  command = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\yaakovha\Desktop\ex2\ex2 -BC:\Users\yaakovha\Desktop\ex2\ex2\out\build\x64-Debug
   description = Re-running CMake...
   generator = 1
 
@@ -56,7 +56,7 @@ rule RERUN_CMAKE
 # Rule for cleaning all built files.
 
 rule CLEAN
-  command = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja\ninja.exe" $FILE_ARG -t clean $TARGETS
+  command = C:\PROGRA~2\MICROS~2\2019\ENTERP~1\Common7\IDE\COMMON~1\MICROS~1\CMake\Ninja\ninja.exe $FILE_ARG -t clean $TARGETS
   description = Cleaning all built files...
 
 
@@ -64,6 +64,6 @@ rule CLEAN
 # Rule for printing all primary targets available.
 
 rule HELP
-  command = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja\ninja.exe" -t targets
+  command = C:\PROGRA~2\MICROS~2\2019\ENTERP~1\Common7\IDE\COMMON~1\MICROS~1\CMake\Ninja\ninja.exe -t targets
   description = All primary targets available:
 

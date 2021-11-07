@@ -16,6 +16,7 @@ void Controller::runGame()
 		findPlayersLocation(level);
 		m_board.printBoard(level);
 		playLevel(level);
+		std::system("cls");
 	}
 }
 //_____________________________________________
@@ -100,22 +101,22 @@ void Controller::handleSpecialKey(int activePlayer, int index)
 	{
 	case KB_Up:
 		// Arrow Up pressed
-		movePlayerInBoard(index, activePlayer, -1, 0);
+		movePlayerInBoard(index, activePlayer, Up, 0);
 		break;
 
 	case KB_Down:
 		// Arrow Down pressed
-		movePlayerInBoard(index, activePlayer, 1, 0);
+		movePlayerInBoard(index, activePlayer, Down, 0);
 		break;
 
 	case KB_Left:
 		// Arrow Left pressed
-		movePlayerInBoard(index, activePlayer, 0, -1);
+		movePlayerInBoard(index, activePlayer, 0, Left);
 		break;
 
 	case KB_Right:
 		// Arrow Right pressed
-		movePlayerInBoard(index, activePlayer, 0, 1);
+		movePlayerInBoard(index, activePlayer, 0, Right);
 		break;
 	}
 }
@@ -138,24 +139,24 @@ bool Controller::handleKeyBoardKey(int c)
 //_________________________________________________________________________
 void Controller::movePlayerInBoard(int index, int player, int row, int col)
 {
+	int nextStep;
 	switch (player)
 	{
 	case KING:
-		m_board.changeBoardItem(index, m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col, player);
-		m_board.changeBoardItem(index, m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol(), Space);
-		m_King.setLocation(Location(m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col));
+		nextStep = m_board.getBoardItem(index, m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col);
+		kingNextStep(index, m_King.isKingMoveValid(nextStep), row, col, player);
 		break;
 	case MAGE:
 		m_board.changeBoardItem(index, m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col, player);
 		m_board.changeBoardItem(index, m_Mage.getMageLocation().getRow(), m_Mage.getMageLocation().getCol(), Space);
-		m_Mage.setLocation(Location(m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol()));
+		m_Mage.setLocation(Location(m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() +col));
 		break;
 	case WARRIOR:
 		m_board.changeBoardItem(index, m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col, player);
 		m_board.changeBoardItem(index, m_Warrior.getWarriorLocation().getRow(), m_Warrior.getWarriorLocation().getCol(), Space);
 		m_Warrior.setLocation(Location(m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col));
 		break;
-	case Thief:
+	case THIEF:
 		m_board.changeBoardItem(index, m_Thief.getThiefLocation().getRow() + row, m_Thief.getThiefLocation().getCol() + col, player);
 		m_board.changeBoardItem(index, m_Thief.getThiefLocation().getRow(), m_Thief.getThiefLocation().getCol(), Space);
 		m_Thief.setLocation(Location(m_Thief.getThiefLocation().getRow() + row, m_Thief.getThiefLocation().getCol() + col));
@@ -163,4 +164,29 @@ void Controller::movePlayerInBoard(int index, int player, int row, int col)
 	}
 	std::system("cls");
 	m_board.printBoard(index);
+}
+//_________________________________
+void Controller::kingNextStep(int index, int decideMove, int row, int col, int player)
+{
+	switch (decideMove)
+	{
+	case DontDoNothing:
+		break;
+	case ContinueAndSaveKey:
+		break;
+	case ContinueAndDelete:
+		m_board.changeBoardItem(index, m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col, player);
+		m_board.changeBoardItem(index, m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol(), Space);
+		m_King.setLocation(Location(m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col));
+		break;
+	case JumpToNext:
+		break;
+	case GameOver:
+		m_board.changeBoardItem(index, m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col, player);
+		m_board.changeBoardItem(index, m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol(), Space);
+		m_King.setLocation(Location(m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col));
+		std::system("cls");
+		m_board.printBoard(index);
+		break;
+	}
 }
