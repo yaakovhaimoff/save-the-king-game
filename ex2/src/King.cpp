@@ -14,12 +14,8 @@ Location King::getKingLocation()
     return m_KingLocation;
 }
 //________________________
-//bool King::isKingValid()
-//{
-//    return true;
-//}
-//________________________________
-//void King::moveKingInBoard(char)
-//{
-//
-//}
+bool King::isKingMoveValid()
+{
+   return true;
+}
+

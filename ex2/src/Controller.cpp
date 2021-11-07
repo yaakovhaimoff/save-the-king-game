@@ -33,7 +33,15 @@ void Controller::findPlayersLocation(int index)
 			case KING:
 				m_King.setLocation(Location(row, col));
 				break;
-
+			case MAGE:
+				m_Mage.setLocation(Location(row, col));
+				break;
+			case WARRIOR:
+				m_Warrior.setLocation(Location(row, col));
+				break;
+			case TILE:
+				m_Tile.setLocation(Location(row, col));
+				break;
 			default:
 				break;
 			}

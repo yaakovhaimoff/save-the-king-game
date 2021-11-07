@@ -8,8 +8,7 @@ class King
 public:
     
     King();
-    bool isKingValid();
-    void moveKingInBoard(char);
+    bool isKingMoveValid();
     void setLocation(const Location &);
     Location getKingLocation();
 

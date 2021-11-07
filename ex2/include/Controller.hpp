@@ -10,6 +10,10 @@
 #include "Board.hpp"
 #include "King.hpp"
 #include "Player.hpp"
+#include "Mage.hpp"
+#include "Tile.hpp"
+#include "Warrior.hpp"
+
 
 const int amountOfLevels = 3;
 const int numOfPlayers = 4;
@@ -53,5 +57,8 @@ private:
     Board m_board;
     King m_King;
     Player m_Player;
+    Mage m_Mage;
+    Tile m_Tile;
+    Warrior m_Warrior;
     
 };
