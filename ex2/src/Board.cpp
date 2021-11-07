@@ -11,7 +11,7 @@ using std::vector;
 void Board::getLinesFromFiles(int index)
 {
     if(index==0)
-        m_boardSrcFiles.open("rcs/Levels");
+        m_boardSrcFiles.open("Levels.txt");
     getline(m_boardSrcFiles, m_levelName[index]);
     m_level[index].open(m_levelName[index]);
     //     Read a file line-by-line
@@ -29,4 +29,8 @@ void Board::printBoard(int index)
 std::vector<std::string> Board::getBoard(int index)
 {
     return m_textBoard[index];
+}
+void Board::changeBoardItem(int index, int row, int col, int player)
+{
+  m_textBoard[index][row][col] = player;
 }

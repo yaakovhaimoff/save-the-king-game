@@ -20,9 +20,10 @@ using std::setw;
 using std::string;
 using std::vector;
 
-int main(int argc, const char * argv[])
+int main()
 {
-    Controller start;
+    Controller player;
+    player.runGame();
 
 return 0;
 }

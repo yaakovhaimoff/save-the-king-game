@@ -6,6 +6,8 @@
 #include <iomanip>
 #include <cstring>
 #include <vector>
+#include <string.h>
+#include <string>
 
 class Board
 {
@@ -14,6 +16,7 @@ public:
     void printBoard(int);
     void getLinesFromFiles(int);
     std::vector<std::string> getBoard(int);
+    void changeBoardItem(int, int, int, int);
     //    void clear();
 private:
     std::ifstream m_boardSrcFiles;

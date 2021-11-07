@@ -3,13 +3,13 @@
 struct Location
 {
 public:
-    int getCol();
     int getRow();
-    Location(int col, int row) : m_col(col), m_row(row) {}
+    int getCol();
+    Location(int row, int col) : m_row(row), m_col(col) {}
     
     
 private:
-    int m_col = 0; // x
-    int m_row = 0; // y
+    int m_col; // x
+    int m_row; // y
     
 };
