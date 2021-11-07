@@ -1,20 +1,20 @@
-#include "Tile.hpp"
+#include "Thief.hpp"
 
 //___________________________________
-Tile::Tile() : m_TileLocation(0,0)
+Thief::Thief() : m_ThiefLocation(0,0)
 {}
 //_________________________________________________________
-void Tile::setLocation(const Location &location)
+void Thief::setLocation(const Location &location)
 {
-    m_TileLocation = location;
+    m_ThiefLocation = location;
 }
 //_______________________________________
-Location Tile::getTileLocation()
+Location Thief::getThiefLocation()
 {
-    return m_TileLocation;
+    return m_ThiefLocation;
 }
 //________________________
-bool Tile::isTileMoveValid()
+bool Thief::isThiefMoveValid()
 {
    return true;
 }

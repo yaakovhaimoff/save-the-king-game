@@ -39,8 +39,8 @@ void Controller::findPlayersLocation(int index)
 			case WARRIOR:
 				m_Warrior.setLocation(Location(row, col));
 				break;
-			case TILE:
-				m_Tile.setLocation(Location(row, col));
+			case THIEF:
+				m_Thief.setLocation(Location(row, col));
 				break;
 			default:
 				break;
@@ -88,7 +88,7 @@ int Controller::decideActivePlayer(int &countKeyBoard)
 	}
 	else if ((countKeyBoard - 1) % numOfPlayers == 3)
 	{
-		return TILE;
+		return THIEF;
 	}
 	return 1;
 }
@@ -155,10 +155,10 @@ void Controller::movePlayerInBoard(int index, int player, int row, int col)
 		m_board.changeBoardItem(index, m_Warrior.getWarriorLocation().getRow(), m_Warrior.getWarriorLocation().getCol(), Space);
 		m_Warrior.setLocation(Location(m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col));
 		break;
-	case TILE:
-		m_board.changeBoardItem(index, m_Tile.getTileLocation().getRow() + row, m_Tile.getTileLocation().getCol() + col, player);
-		m_board.changeBoardItem(index, m_Tile.getTileLocation().getRow(), m_Tile.getTileLocation().getCol(), Space);
-		m_Tile.setLocation(Location(m_Tile.getTileLocation().getRow() + row, m_Tile.getTileLocation().getCol() + col));
+	case Thief:
+		m_board.changeBoardItem(index, m_Thief.getThiefLocation().getRow() + row, m_Thief.getThiefLocation().getCol() + col, player);
+		m_board.changeBoardItem(index, m_Thief.getThiefLocation().getRow(), m_Thief.getThiefLocation().getCol(), Space);
+		m_Thief.setLocation(Location(m_Thief.getThiefLocation().getRow() + row, m_Thief.getThiefLocation().getCol() + col));
 		break;
 	}
 	std::system("cls");

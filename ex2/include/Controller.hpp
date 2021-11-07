@@ -12,7 +12,7 @@
 #include "King.hpp"
 #include "Player.hpp"
 #include "Mage.hpp"
-#include "Tile.hpp"
+#include "Thief.hpp"
 #include "Warrior.hpp"
 
 
@@ -24,7 +24,7 @@ enum playersKeys
          KING = 75,      // 'K'
          MAGE = 77,     // 'M'
          WARRIOR = 87, // 'W'
-         TILE = 84    // 'T'
+         THIEF = 84    // 'T'
 };
 
 enum Keys
@@ -49,6 +49,7 @@ public:
     Controller();
     void findPlayersLocation(int);
     void playLevel(int);
+
     void runGame();
     int decideActivePlayer(int&);
     bool handleKeyBoardKey(int);
@@ -60,7 +61,7 @@ private:
     King m_King;
     Player m_Player;
     Mage m_Mage;
-    Tile m_Tile;
+    Thief m_Thief;
     Warrior m_Warrior;
     
 };
