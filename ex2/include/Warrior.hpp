@@ -1,8 +1,10 @@
 #pragma once
 #include <stdio.h>
-#include "Location.hpp"
 #include <iostream>
 #include <cstdlib>
+
+#include "Location.hpp"
+#include "gamesTools.hpp"
 
 class Warrior
 {
@@ -12,6 +14,7 @@ public:
     bool isWarriorMoveValid();
     void setLocation(const Location &);
     Location getWarriorLocation();
+    int isWarriorMoveValid(int nextStep);
 
 private:
     Location m_WarriorLocation;

@@ -18,6 +18,9 @@ int Mage::isMageMoveValid(int nextStep)
 {
 	switch (nextStep)
 	{
+	case WARRIOR:
+	case KING:
+	case THIEF:
 	case Gate:
 	case Tile:
 	case Wall:

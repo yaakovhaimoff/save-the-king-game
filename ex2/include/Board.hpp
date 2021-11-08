@@ -14,6 +14,7 @@ class Board
     
 public:
     void printBoard(int);
+    void printMessages(int, int, bool);
     void getLinesFromFiles(int);
     std::vector<std::string> getBoard(int);
     void changeBoardItem(int, int, int, int);

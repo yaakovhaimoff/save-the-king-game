@@ -13,9 +13,26 @@ Location Warrior::getWarriorLocation()
 {
     return m_WarriorLocation;
 }
-//________________________
-bool Warrior::isWarriorMoveValid()
+//____________________________________
+int Warrior::isWarriorMoveValid(int nextStep)
 {
-   return true;
+	switch (nextStep)
+	{
+	case MAGE:
+	case KING:
+	case THIEF:
+	case Gate:
+	case Wall:
+	case Throne:
+	case Fire:
+		return DontDoNothing;
+	case Space:
+		return ContinueAndDelete;
+	case Tile:
+	case Teleport:
+	case GateKey:
+		return StepAndSaveKey;
+	}
+	return 1;
 }
 

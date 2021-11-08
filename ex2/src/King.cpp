@@ -1,5 +1,4 @@
 #include "King.hpp"
-#include "gamesTools.hpp"
 
 //________________________________
 King::King() : m_KingLocation(0, 0)
@@ -19,6 +18,9 @@ int King::isKingMoveValid(int nextStep)
 {
 	switch (nextStep)
 	{
+	case MAGE:
+	case WARRIOR:
+	case THIEF:
 	case Fire:
 	case Gate:
 	case Tile:
