@@ -1,8 +1,10 @@
 #pragma once
 #include <stdio.h>
-#include "Location.hpp"
 #include <iostream>
 #include <cstdlib>
+
+#include "Location.hpp"
+#include "gamesTools.hpp"
 
 class King
 {

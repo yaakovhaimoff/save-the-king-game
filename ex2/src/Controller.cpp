@@ -72,7 +72,7 @@ void Controller::playLevel(int indexLevel)
 	}
 }
 //__________________________________________________
-int Controller::decideActivePlayer(int &countKeyBoard)
+int Controller::decideActivePlayer(int& countKeyBoard)
 {
 	countKeyBoard++;
 	if ((countKeyBoard - 1) % numOfPlayers == 0)
@@ -149,7 +149,7 @@ void Controller::movePlayerInBoard(int index, int player, int row, int col)
 	case MAGE:
 		m_board.changeBoardItem(index, m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col, player);
 		m_board.changeBoardItem(index, m_Mage.getMageLocation().getRow(), m_Mage.getMageLocation().getCol(), Space);
-		m_Mage.setLocation(Location(m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() +col));
+		m_Mage.setLocation(Location(m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col));
 		break;
 	case WARRIOR:
 		m_board.changeBoardItem(index, m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col, player);
@@ -168,25 +168,37 @@ void Controller::movePlayerInBoard(int index, int player, int row, int col)
 //_________________________________
 void Controller::kingNextStep(int index, int decideMove, int row, int col, int player)
 {
+	static bool needToSaveKey = false;
 	switch (decideMove)
 	{
 	case DontDoNothing:
 		break;
-	case ContinueAndSaveKey:
+	case StepAndSaveKey:
+		saveKingStep(index, row, col, player, Space);
+			needToSaveKey = true;
 		break;
 	case ContinueAndDelete:
-		m_board.changeBoardItem(index, m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col, player);
-		m_board.changeBoardItem(index, m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol(), Space);
-		m_King.setLocation(Location(m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col));
-		break;
+		if (needToSaveKey)
+		{
+			saveKingStep(index, row, col, player, GateKey);
+			needToSaveKey = false;
+			break;
+		}
+		saveKingStep(index, row, col, player, Space);
+			break;
 	case JumpToNext:
 		break;
 	case GameOver:
-		m_board.changeBoardItem(index, m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col, player);
-		m_board.changeBoardItem(index, m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol(), Space);
-		m_King.setLocation(Location(m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col));
+		saveKingStep(index, row, col, player, Space);
 		std::system("cls");
 		m_board.printBoard(index);
 		break;
 	}
+}
+//____________________________________________________
+void Controller::saveKingStep(int index, int row, int col, int player, int key)
+{
+	m_board.changeBoardItem(index, m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col, player);
+	m_board.changeBoardItem(index, m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol(), key);
+	m_King.setLocation(Location(m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col));
 }

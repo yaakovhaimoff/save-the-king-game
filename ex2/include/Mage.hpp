@@ -1,15 +1,17 @@
 #pragma once
 #include <stdio.h>
-#include "Location.hpp"
 #include <iostream>
 #include <cstdlib>
+
+#include "Location.hpp"
+#include "gamesTools.hpp"
 
 class Mage
 {
 public:
     
     Mage();
-    bool isMageMoveValid();
+    int isMageMoveValid(int nextStep);
     void setLocation(const Location &);
     Location getMageLocation();
 

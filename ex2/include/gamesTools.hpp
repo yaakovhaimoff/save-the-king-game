@@ -1,5 +1,8 @@
 #pragma once
 
+const int amountOfLevels = 3;
+const int numOfPlayers = 4;
+
 enum gameTools
 {
 	GateKey = 70,
@@ -16,7 +19,7 @@ enum gameMoves
 {
 	DontDoNothing = 0,
 	ContinueAndDelete = 1,
-	ContinueAndSaveKey = 2,
+	StepAndSaveKey = 2,
 	JumpToNext = 3,
 	GameOver = 4
 };
@@ -27,4 +30,27 @@ enum steps
 	Down = 1,
 	Left = -1,
 	Right = 1
+};
+
+enum playersKeys
+{
+	KING = 75,      // 'K'
+	MAGE = 77,     // 'M'
+	WARRIOR = 87, // 'W'
+	THIEF = 84    // 'T'
+};
+
+enum Keys
+{
+	PlayersKey = 112,
+	KB_Escape = 27,
+	SpecialKey = 224,
+};
+
+enum SpecialKeys
+{
+	KB_Up = 72,
+	KB_Down = 80,
+	KB_Left = 75,
+	KB_Right = 77,
 };

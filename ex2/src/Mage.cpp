@@ -13,9 +13,22 @@ Location Mage::getMageLocation()
 {
     return m_MageLocation;
 }
-//________________________
-bool Mage::isMageMoveValid()
+//____________________________________
+int Mage::isMageMoveValid(int nextStep)
 {
-   return true;
+	switch (nextStep)
+	{
+	case Gate:
+	case Tile:
+	case Wall:
+	case Throne:
+		return DontDoNothing;
+	case Space:
+	case Fire:
+		return ContinueAndDelete;
+	case Teleport:
+	case GateKey:
+		return StepAndSaveKey;
+	}
+	return 1;
 }
-

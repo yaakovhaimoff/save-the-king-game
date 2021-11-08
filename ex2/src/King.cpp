@@ -27,7 +27,7 @@ int King::isKingMoveValid(int nextStep)
 	case Space:
 		return ContinueAndDelete;
 	case GateKey:
-		return ContinueAndSaveKey;
+		return StepAndSaveKey;
 	case Teleport:
 		return JumpToNext;
 	case Throne:
