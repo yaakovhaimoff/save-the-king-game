@@ -147,15 +147,15 @@ void Controller::movePlayerInBoard(int index, int player, int &sumOfMoves, int r
 	{
 	case KING:
 		nextStep = m_board.getBoardItem(index, m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col);
-		kingNextStep(index, m_King.isKingMoveValid(nextStep), sumOfMoves, row, col, player);
+		m_King.kingNextStep(m_board, index, m_King.isKingMoveValid(nextStep), player, sumOfMoves, row, col);
 		break;
 	case MAGE:
-		nextStep = m_board.getBoardItem(index, m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col);
-		mageNextStep(index, m_Mage.isMageMoveValid(nextStep), sumOfMoves, row, col, player);
+		nextStep = m_board.getBoardItem(index, m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col);	
+		m_Mage.mageNextStep(m_board, index, m_Mage.isMageMoveValid(nextStep), player, sumOfMoves, row, col);
 		break;
 	case WARRIOR:
 		nextStep = m_board.getBoardItem(index, m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col);
-		warriorNextStep(index, m_Warrior.isWarriorMoveValid(nextStep), sumOfMoves, row, col, player);
+		m_Warrior.warriorNextStep(m_board, index, m_Warrior.isWarriorMoveValid(nextStep),player, sumOfMoves, row, col);
 		break;
 	case THIEF:
 		m_board.changeBoardItem(index, m_Thief.getThiefLocation().getRow() + row, m_Thief.getThiefLocation().getCol() + col, player);
@@ -166,112 +166,4 @@ void Controller::movePlayerInBoard(int index, int player, int &sumOfMoves, int r
 	std::system("cls");
 	m_board.printMessages(player, sumOfMoves, thiefHasKey);
 	m_board.printBoard(index);
-}
-//_________________________________
-void Controller::kingNextStep(int index, int decideMove, int &sumOfMoves, int row, int col, int player)
-{
-	static bool needToSaveKey = false;
-	switch (decideMove)
-	{
-	case DontDoNothing:
-		break;
-	case StepAndSaveKey:
-		saveKingStep(index, row, col, player, Space);
-			needToSaveKey = true;
-			sumOfMoves++;
-		break;
-	case ContinueAndDelete:
-		sumOfMoves++;
-		if (needToSaveKey)
-		{
-			saveKingStep(index, row, col, player, GateKey);
-			needToSaveKey = false;
-			break;
-		}
-		saveKingStep(index, row, col, player, Space);
-			break;
-	case JumpToNext:
-		break;
-	case GameOver:
-		saveKingStep(index, row, col, player, Space);
-		std::system("cls");
-		m_board.printBoard(index);
-		break;
-	}
-}
-//_____________________________________________________________________________
-void Controller::saveKingStep(int index, int row, int col, int player, int key)
-{
-	m_board.changeBoardItem(index, m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col, player);
-	m_board.changeBoardItem(index, m_King.getKingLocation().getRow(), m_King.getKingLocation().getCol(), key);
-	m_King.setLocation(Location(m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col));
-}
-//____________________________________________________________________________________
-void Controller::mageNextStep(int index, int decideMove, int &sumOfMoves, int row, int col, int player)
-{
-	static bool needToSaveKey = false;
-	switch (decideMove)
-	{
-	case DontDoNothing:
-		break;
-	case StepAndSaveKey:
-		saveMageStep(index, row, col, player, Space);
-		needToSaveKey = true;
-		sumOfMoves++;
-		break;
-	case ContinueAndDelete:
-		sumOfMoves++;
-		if (needToSaveKey)
-		{
-			saveMageStep(index, row, col, player, GateKey);
-			needToSaveKey = false;
-			break;
-		}
-		saveMageStep(index, row, col, player, Space);
-		break;
-	case JumpToNext:
-		break;
-	}
-}
-//_____________________________________________________________________________
-void Controller::saveMageStep(int index, int row, int col, int player, int key)
-{
-	m_board.changeBoardItem(index, m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col, player);
-	m_board.changeBoardItem(index, m_Mage.getMageLocation().getRow(), m_Mage.getMageLocation().getCol(), key);
-	m_Mage.setLocation(Location(m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col));
-}
-//________________________________________________________________________________
-void Controller::warriorNextStep(int index, int decideMove, int &sumOfMoves, int row, int col, int player)
-{
-	static bool needToSaveKey = false;
-	switch (decideMove)
-	{
-	case DontDoNothing:
-		break;
-	case StepAndSaveKey:
-		saveWarriorStep(index, row, col, player, Space);
-		needToSaveKey = true;
-		sumOfMoves++;
-		break;
-	case ContinueAndDelete:
-		sumOfMoves++;
-		if (needToSaveKey)
-		{
-			saveWarriorStep(index, row, col, player, GateKey);
-			needToSaveKey = false;
-			break;
-		}
-		saveWarriorStep(index, row, col, player, Space);
-		break;
-	case JumpToNext:
-		break;
-	}
-
-}
-//___________________________________________________________________________________
-void Controller::saveWarriorStep(int index, int row, int col, int player, int key)
-{
-	m_board.changeBoardItem(index, m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col, player);
-	m_board.changeBoardItem(index, m_Warrior.getWarriorLocation().getRow(), m_Warrior.getWarriorLocation().getCol(), key);
-	m_Warrior.setLocation(Location(m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col));
 }

@@ -4,6 +4,7 @@
 #include <cstdlib>
 
 #include "Location.hpp"
+#include "Board.hpp"
 #include "gamesTools.hpp"
 
 class Warrior
@@ -11,10 +12,11 @@ class Warrior
 public:
     
     Warrior();
-    bool isWarriorMoveValid();
     void setLocation(const Location &);
     Location getWarriorLocation();
-    int isWarriorMoveValid(int nextStep);
+    int isWarriorMoveValid(int);
+    void warriorNextStep(Board&, int, int, int, int&, int, int);
+    void saveWarriorStep(Board&, int, int, int, int, int);
 
 private:
     Location m_WarriorLocation;
