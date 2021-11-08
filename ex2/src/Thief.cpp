@@ -19,3 +19,5 @@ bool Thief::isThiefMoveValid()
    return true;
 }
 
+//________________________________________________________________________________
+void Warrior::warriorNextStep(Board& board, int index, int decideMove, int player, int& sumOfMoves, int row, int col)
