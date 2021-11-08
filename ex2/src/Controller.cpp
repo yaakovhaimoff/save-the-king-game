@@ -54,7 +54,8 @@ void Controller::findPlayersLocation(int index)
 void Controller::playLevel(int indexLevel)
 {
 	int countKeyBoard = 0,
-		activePlayer = 0;
+		activePlayer = 0,
+		sumOfMoves = 0;;
 	for (auto exit = false; !exit;)
 	{
 		auto c = _getch();
@@ -64,7 +65,7 @@ void Controller::playLevel(int indexLevel)
 			activePlayer = decideActivePlayer(countKeyBoard);
 			break;
 		case SpecialKey:
-			handleSpecialKey(activePlayer, indexLevel);
+			handleSpecialKey(activePlayer, indexLevel, sumOfMoves);
 			break;
 		default:
 			exit = handleKeyBoardKey(c);
@@ -95,9 +96,8 @@ int Controller::decideActivePlayer(int& countKeyBoard)
 	return 1;
 }
 //________________________________
-void Controller::handleSpecialKey(int activePlayer, int index)
+void Controller::handleSpecialKey(int activePlayer, int index, int &sumOfMoves)
 {
-	static int sumOfMoves = 0;
 	static bool thiefHasKey = false;
 	auto c = _getch();
 	switch (c)
@@ -140,22 +140,22 @@ bool Controller::handleKeyBoardKey(int c)
 	return false;
 }
 //_________________________________________________________________________
-void Controller::movePlayerInBoard(int index, int player, int sumOfMoves, int row, int col, bool thiefHasKey)
+void Controller::movePlayerInBoard(int index, int player, int &sumOfMoves, int row, int col, bool thiefHasKey)
 {
 	int nextStep;
 	switch (player)
 	{
 	case KING:
 		nextStep = m_board.getBoardItem(index, m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col);
-		kingNextStep(index, m_King.isKingMoveValid(nextStep), row, col, player);
+		kingNextStep(index, m_King.isKingMoveValid(nextStep), sumOfMoves, row, col, player);
 		break;
 	case MAGE:
 		nextStep = m_board.getBoardItem(index, m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col);
-		mageNextStep(index, m_Mage.isMageMoveValid(nextStep), row, col, player);
+		mageNextStep(index, m_Mage.isMageMoveValid(nextStep), sumOfMoves, row, col, player);
 		break;
 	case WARRIOR:
 		nextStep = m_board.getBoardItem(index, m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col);
-		warriorNextStep(index, m_Warrior.isWarriorMoveValid(nextStep), row, col, player);
+		warriorNextStep(index, m_Warrior.isWarriorMoveValid(nextStep), sumOfMoves, row, col, player);
 		break;
 	case THIEF:
 		m_board.changeBoardItem(index, m_Thief.getThiefLocation().getRow() + row, m_Thief.getThiefLocation().getCol() + col, player);
@@ -168,7 +168,7 @@ void Controller::movePlayerInBoard(int index, int player, int sumOfMoves, int ro
 	m_board.printBoard(index);
 }
 //_________________________________
-void Controller::kingNextStep(int index, int decideMove, int row, int col, int player)
+void Controller::kingNextStep(int index, int decideMove, int &sumOfMoves, int row, int col, int player)
 {
 	static bool needToSaveKey = false;
 	switch (decideMove)
@@ -178,8 +178,10 @@ void Controller::kingNextStep(int index, int decideMove, int row, int col, int p
 	case StepAndSaveKey:
 		saveKingStep(index, row, col, player, Space);
 			needToSaveKey = true;
+			sumOfMoves++;
 		break;
 	case ContinueAndDelete:
+		sumOfMoves++;
 		if (needToSaveKey)
 		{
 			saveKingStep(index, row, col, player, GateKey);
@@ -205,7 +207,7 @@ void Controller::saveKingStep(int index, int row, int col, int player, int key)
 	m_King.setLocation(Location(m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col));
 }
 //____________________________________________________________________________________
-void Controller::mageNextStep(int index, int decideMove, int row, int col, int player)
+void Controller::mageNextStep(int index, int decideMove, int &sumOfMoves, int row, int col, int player)
 {
 	static bool needToSaveKey = false;
 	switch (decideMove)
@@ -215,8 +217,10 @@ void Controller::mageNextStep(int index, int decideMove, int row, int col, int p
 	case StepAndSaveKey:
 		saveMageStep(index, row, col, player, Space);
 		needToSaveKey = true;
+		sumOfMoves++;
 		break;
 	case ContinueAndDelete:
+		sumOfMoves++;
 		if (needToSaveKey)
 		{
 			saveMageStep(index, row, col, player, GateKey);
@@ -235,10 +239,9 @@ void Controller::saveMageStep(int index, int row, int col, int player, int key)
 	m_board.changeBoardItem(index, m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col, player);
 	m_board.changeBoardItem(index, m_Mage.getMageLocation().getRow(), m_Mage.getMageLocation().getCol(), key);
 	m_Mage.setLocation(Location(m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col));
-
 }
 //________________________________________________________________________________
-void Controller::warriorNextStep(int index, int decideMove, int row, int col, int player)
+void Controller::warriorNextStep(int index, int decideMove, int &sumOfMoves, int row, int col, int player)
 {
 	static bool needToSaveKey = false;
 	switch (decideMove)
@@ -248,8 +251,10 @@ void Controller::warriorNextStep(int index, int decideMove, int row, int col, in
 	case StepAndSaveKey:
 		saveWarriorStep(index, row, col, player, Space);
 		needToSaveKey = true;
+		sumOfMoves++;
 		break;
 	case ContinueAndDelete:
+		sumOfMoves++;
 		if (needToSaveKey)
 		{
 			saveWarriorStep(index, row, col, player, GateKey);
@@ -269,5 +274,4 @@ void Controller::saveWarriorStep(int index, int row, int col, int player, int ke
 	m_board.changeBoardItem(index, m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col, player);
 	m_board.changeBoardItem(index, m_Warrior.getWarriorLocation().getRow(), m_Warrior.getWarriorLocation().getCol(), key);
 	m_Warrior.setLocation(Location(m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col));
-
 }

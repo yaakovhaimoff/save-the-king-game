@@ -28,13 +28,13 @@ public:
 	void runGame();
 	int decideActivePlayer(int&);
 	bool handleKeyBoardKey(int);
-	void handleSpecialKey(int, int);
-	void movePlayerInBoard(int, int, int, int, int, bool);
-	void kingNextStep(int, int, int, int, int);
+	void handleSpecialKey(int, int, int&);
+	void movePlayerInBoard(int, int, int&, int, int, bool);
+	void kingNextStep(int, int, int&, int, int, int);
 	void saveKingStep(int, int, int, int, int);
-	void mageNextStep(int, int, int, int, int);
+	void mageNextStep(int, int, int&, int, int, int);
 	void saveMageStep(int, int, int, int, int);
-	void warriorNextStep(int, int, int, int, int);
+	void warriorNextStep(int, int, int&, int, int, int);
 	void saveWarriorStep(int, int, int, int, int);
 
 private:
