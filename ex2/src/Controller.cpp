@@ -23,32 +23,10 @@ void Controller::runGame()
 //_____________________________________________
 void Controller::findPlayersLocation(int index)
 {
-	char c;
-	for (int row = 0; row < m_board.getBoard(index).size(); row++)
-	{
-		for (int col = 0; col < m_board.getBoard(index)[row].size(); col++)
-		{
-
-			c = m_board.getBoard(index)[row][col];
-			switch (c)
-			{
-			case KING:
-				m_King.setLocation(Location(row, col));
-				break;
-			case MAGE:
-				m_Mage.setLocation(Location(row, col));
-				break;
-			case WARRIOR:
-				m_Warrior.setLocation(Location(row, col));
-				break;
-			case THIEF:
-				m_Thief.setLocation(Location(row, col));
-				break;
-			default:
-				break;
-			}
-		}
-	}
+	m_King.setLocation(Location(m_board.getPlayerLoctionInBoard(index, KING)));
+	m_Mage.setLocation(Location(m_board.getPlayerLoctionInBoard(index, MAGE)));
+	m_Warrior.setLocation(Location(m_board.getPlayerLoctionInBoard(index, WARRIOR)));
+	m_Thief.setLocation(Location(m_board.getPlayerLoctionInBoard(index, THIEF)));
 }
 //________________________________________
 void Controller::playLevel(int indexLevel)
@@ -96,7 +74,7 @@ int Controller::decideActivePlayer(int& countKeyBoard)
 	return 1;
 }
 //________________________________
-void Controller::handleSpecialKey(int activePlayer, int index, int &sumOfMoves)
+void Controller::handleSpecialKey(int activePlayer, int index, int& sumOfMoves)
 {
 	static bool thiefHasKey = false;
 	auto c = _getch();
@@ -140,27 +118,26 @@ bool Controller::handleKeyBoardKey(int c)
 	return false;
 }
 //_________________________________________________________________________
-void Controller::movePlayerInBoard(int index, int player, int &sumOfMoves, int row, int col, bool thiefHasKey)
+void Controller::movePlayerInBoard(int index, int player, int& sumOfMoves, int row, int col, bool thiefHasKey)
 {
 	int nextStep;
 	switch (player)
 	{
 	case KING:
 		nextStep = m_board.getBoardItem(index, m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col);
-		m_King.kingNextStep(m_board, index, m_King.isKingMoveValid(nextStep), player, sumOfMoves, row, col);
+		m_King.kingNextStep(m_board, index, nextStep, player, sumOfMoves, row, col);
 		break;
 	case MAGE:
-		nextStep = m_board.getBoardItem(index, m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col);	
-		m_Mage.mageNextStep(m_board, index, m_Mage.isMageMoveValid(nextStep), player, sumOfMoves, row, col);
+		nextStep = m_board.getBoardItem(index, m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col);
+		m_Mage.mageNextStep(m_board, index, nextStep, player, sumOfMoves, row, col);
 		break;
 	case WARRIOR:
 		nextStep = m_board.getBoardItem(index, m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col);
-		m_Warrior.warriorNextStep(m_board, index, m_Warrior.isWarriorMoveValid(nextStep),player, sumOfMoves, row, col);
+		m_Warrior.warriorNextStep(m_board, index, nextStep, player, sumOfMoves, row, col);
 		break;
 	case THIEF:
-		m_board.changeBoardItem(index, m_Thief.getThiefLocation().getRow() + row, m_Thief.getThiefLocation().getCol() + col, player);
-		m_board.changeBoardItem(index, m_Thief.getThiefLocation().getRow(), m_Thief.getThiefLocation().getCol(), Space);
-		m_Thief.setLocation(Location(m_Thief.getThiefLocation().getRow() + row, m_Thief.getThiefLocation().getCol() + col));
+		nextStep = m_board.getBoardItem(index, m_Thief.getThiefLocation().getRow() + row, m_Thief.getThiefLocation().getCol() + col);
+		m_Thief.thiefNextStep(m_board, index, nextStep, player, sumOfMoves, row, col);
 		break;
 	}
 	std::system("cls");

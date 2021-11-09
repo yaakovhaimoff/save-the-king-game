@@ -20,5 +20,6 @@ public:
 
 private:
     Location m_ThiefLocation;
-
+    bool m_needToSaveKey;
+    bool m_thiefKey;
 };

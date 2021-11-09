@@ -9,6 +9,8 @@
 #include <string.h>
 #include <string>
 
+#include "Location.hpp"
+
 class Board
 {
     
@@ -16,7 +18,7 @@ public:
     void printBoard(int);
     void printMessages(int, int, bool);
     void getLinesFromFiles(int);
-    std::vector<std::string> getBoard(int);
+    Location getPlayerLoctionInBoard(int, int);
     void changeBoardItem(int, int, int, int);
     int getBoardItem(int, int, int);
     //    void clear();

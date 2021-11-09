@@ -38,9 +38,17 @@ void Board::printMessages(int activePlayer, int moves, bool hasKey)
 
 }
 //_________________________________________________
-std::vector<std::string> Board::getBoard(int index)
+Location Board::getPlayerLoctionInBoard(int index, int playerKey)
 {
-	return m_textBoard[index];
+	for (int row = 0; row < m_textBoard[index].size(); row++)
+	{
+		for (int col = 0; col < m_textBoard[index][row].size(); col++)
+		{
+			if (playerKey == m_textBoard[index][row][col])
+				return Location(row, col);
+		}
+	}
+	return Location(0, 0);
 }
 //__________________________________________________________________
 void Board::changeBoardItem(int index, int row, int col, int player)

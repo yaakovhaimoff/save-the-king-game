@@ -20,5 +20,6 @@ public:
 
 private:
     Location m_WarriorLocation;
+    bool m_needToSaveKey;
 
 };

@@ -1,7 +1,7 @@
 #include "Warrior.hpp"
 
 //___________________________________
-Warrior::Warrior() : m_WarriorLocation(0,0)
+Warrior::Warrior() : m_WarriorLocation(0,0), m_needToSaveKey(false)
 {}
 //_________________________________________________________
 void Warrior::setLocation(const Location &location)
@@ -36,24 +36,24 @@ int Warrior::isWarriorMoveValid(int nextStep)
 	return 1;
 }
 //________________________________________________________________________________
-void Warrior::warriorNextStep(Board& board, int index, int decideMove, int player, int& sumOfMoves, int row, int col)
+void Warrior::warriorNextStep(Board& board, int index, int nextStep, int player, int& sumOfMoves, int row, int col)
 {
-	static bool needToSaveKey = false;
+	int decideMove = isWarriorMoveValid(nextStep);
 	switch (decideMove)
 	{
 	case DontDoNothing:
 		break;
 	case StepAndSaveKey:
 		saveWarriorStep(board, index, row, col, player, Space);
-		needToSaveKey = true;
+		m_needToSaveKey = true;
 		sumOfMoves++;
 		break;
 	case ContinueAndDelete:
 		sumOfMoves++;
-		if (needToSaveKey)
+		if (m_needToSaveKey)
 		{
 			saveWarriorStep(board, index, row, col, player, GateKey);
-			needToSaveKey = false;
+			m_needToSaveKey = false;
 			break;
 		}
 		saveWarriorStep(board, index, row, col, player, Space);

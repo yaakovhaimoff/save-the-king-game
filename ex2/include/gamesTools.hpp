@@ -21,7 +21,8 @@ enum gameMoves
 	ContinueAndDelete = 1,
 	StepAndSaveKey = 2,
 	JumpToNext = 3,
-	GameOver = 4
+	ThiefHasKey = 4,
+	GameOver = 5
 };
 
 enum steps

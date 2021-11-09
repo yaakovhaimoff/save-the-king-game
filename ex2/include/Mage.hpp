@@ -20,4 +20,6 @@ public:
 
 private:
     Location m_MageLocation;
+    bool m_needToSaveKey;
+
 };

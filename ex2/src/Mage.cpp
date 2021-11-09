@@ -1,7 +1,7 @@
 #include "Mage.hpp"
 
 //___________________________________
-Mage::Mage() : m_MageLocation(0,0)
+Mage::Mage() : m_MageLocation(0,0), m_needToSaveKey(false)
 {}
 //_________________________________________________________
 void Mage::setLocation(const Location &location)
@@ -36,24 +36,24 @@ int Mage::isMageMoveValid(int nextStep)
 	return 1;
 }
 //____________________________________________________________________________________
-void Mage::mageNextStep(Board& board, int index, int decideMove, int player, int& sumOfMoves, int row, int col)
+void Mage::mageNextStep(Board& board, int index, int nextStep, int player, int& sumOfMoves, int row, int col)
 {
-	static bool needToSaveKey = false;
+	int decideMove = isMageMoveValid(nextStep);
 	switch (decideMove)
 	{
 	case DontDoNothing:
 		break;
 	case StepAndSaveKey:
 		saveMageStep(board, index, row, col, player, Space);
-		needToSaveKey = true;
+		m_needToSaveKey = true;
 		sumOfMoves++;
 		break;
 	case ContinueAndDelete:
 		sumOfMoves++;
-		if (needToSaveKey)
+		if (m_needToSaveKey)
 		{
 			saveMageStep(board, index, row, col, player, GateKey);
-			needToSaveKey = false;
+			m_needToSaveKey = false;
 			break;
 		}
 		saveMageStep(board, index, row, col, player, Space);
