@@ -6,26 +6,24 @@ using std::endl;
 using std::ifstream;
 using std::string;
 using std::vector;
-
-// _____________________________________
-void Board::getLinesFromFiles(int index)
+//_____________
+Board::Board() 
+: m_boardSrcFiles("Levels.txt"){}
+// _____________________________
+void Board::getLinesFromFiles()
 {
-	if (index == 0)
-		m_boardSrcFiles.open("Levels.txt");
-	getline(m_boardSrcFiles, m_levelName[index]);
-	m_level[index].open(m_levelName[index]);
 	//     Read a file line-by-line
-	for (auto line = std::string(); std::getline(m_level[index], line);)
+	for (auto line = std::string(); std::getline(m_boardSrcFiles, line) && line.compare("") !=0 ;)
 	{
-		m_textBoard[index].push_back(line);
+		m_textBoard.push_back(line);
 	}
 }
 //_______________________________
-void Board::printBoard(int index)
+void Board::printBoard()
 {
-	for (int row = 0; row < m_textBoard[index].size(); row++)
+	for (int row = 0; row < this->m_textBoard.size(); row++)
 	{
-		cout << m_textBoard[index][row] << endl;
+		cout << this->m_textBoard[row] << endl;
 	}
 }
 //_______________________________________
@@ -38,25 +36,35 @@ void Board::printMessages(int activePlayer, int moves, bool hasKey)
 
 }
 //_________________________________________________
-Location Board::getPlayerLoctionInBoard(int index, int playerKey)
+Location Board::getPlayerLoctionInBoard(int playerKey)
 {
-	for (int row = 0; row < m_textBoard[index].size(); row++)
+	for (int row = 0; row < m_textBoard.size(); row++)
 	{
-		for (int col = 0; col < m_textBoard[index][row].size(); col++)
+		for (int col = 0; col < m_textBoard[row].size(); col++)
 		{
-			if (playerKey == m_textBoard[index][row][col])
+			if (playerKey == this->m_textBoard[row][col])
 				return Location(row, col);
 		}
 	}
 	return Location(0, 0);
 }
 //__________________________________________________________________
-void Board::changeBoardItem(int index, int row, int col, int player)
+void Board::changeBoardItem(int row, int col, int player)
 {
-	m_textBoard[index][row][col] = player;
+	this->m_textBoard[row][col] = player;
 }
 //__________________________________________________
-int Board::getBoardItem(int index, int row, int col)
+int Board::getBoardItem(int row, int col)
 {
-	return m_textBoard[index][row][col];
+	return m_textBoard[row][col];
+}
+//______________________
+void Board::clearBoard()
+{
+	this->m_textBoard.clear();
+}
+//___________________________
+bool Board::checkEndOfFile()
+{
+	return m_boardSrcFiles.eof();
 }

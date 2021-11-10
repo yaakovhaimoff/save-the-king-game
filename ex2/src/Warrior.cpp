@@ -28,7 +28,7 @@ int Warrior::isWarriorMoveValid(int nextStep)
 	return DontDoNothing;
 }
 //________________________________________________________________________________
-void Warrior::warriorNextStep(Board& board, int index, int nextStep, int player, int& sumOfMoves, int row, int col)
+void Warrior::warriorNextStep(Board& board, int nextStep, int player, int& sumOfMoves, int row, int col)
 {
 	int decideMove = isWarriorMoveValid(nextStep);
 	switch (decideMove)
@@ -36,7 +36,7 @@ void Warrior::warriorNextStep(Board& board, int index, int nextStep, int player,
 	case DontDoNothing:
 		break;
 	case StepAndSaveKey:
-		saveWarriorStep(board, index, row, col, player, Space);
+		saveWarriorStep(board, row, col, player, Space);
 		m_needToSaveKey = true;
 		sumOfMoves++;
 		break;
@@ -44,11 +44,11 @@ void Warrior::warriorNextStep(Board& board, int index, int nextStep, int player,
 		sumOfMoves++;
 		if (m_needToSaveKey)
 		{
-			saveWarriorStep(board, index, row, col, player, GateKey);
+			saveWarriorStep(board,  row, col, player, GateKey);
 			m_needToSaveKey = false;
 			break;
 		}
-		saveWarriorStep(board, index, row, col, player, Space);
+		saveWarriorStep(board, row, col, player, Space);
 		break;
 	case JumpToNext:
 		break;
@@ -56,9 +56,9 @@ void Warrior::warriorNextStep(Board& board, int index, int nextStep, int player,
 
 }
 //___________________________________________________________________________________
-void Warrior::saveWarriorStep(Board &board, int index, int row, int col, int player, int key)
+void Warrior::saveWarriorStep(Board &board, int row, int col, int player, int key)
 {
-	board.changeBoardItem(index, this->getWarriorLocation().getRow() + row, this->getWarriorLocation().getCol() + col, player);
-	board.changeBoardItem(index, this->getWarriorLocation().getRow(), this->getWarriorLocation().getCol(), key);
+	board.changeBoardItem(this->getWarriorLocation().getRow() + row, this->getWarriorLocation().getCol() + col, player);
+	board.changeBoardItem(this->getWarriorLocation().getRow(), this->getWarriorLocation().getCol(), key);
 	this->setLocation(Location(this->getWarriorLocation().getRow() + row, this->getWarriorLocation().getCol() + col));
 }

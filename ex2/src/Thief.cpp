@@ -30,7 +30,7 @@ int Thief::isThiefMoveValid(int nextStep)
 	return DontDoNothing;
 }
 //________________________________________________________________________________
-void Thief::thiefNextStep(Board& board, int index, int nextStep, int player, int& sumOfMoves, int row, int col)
+void Thief::thiefNextStep(Board& board, int nextStep, int player, int& sumOfMoves, int row, int col)
 {
 	int decideMove = isThiefMoveValid(nextStep);
 	switch (decideMove)
@@ -38,7 +38,7 @@ void Thief::thiefNextStep(Board& board, int index, int nextStep, int player, int
 	case DontDoNothing:
 		break;
 	case StepAndSaveKey:
-		saveThiefStep(board, index, row, col, player, Space);
+		saveThiefStep(board, row, col, player, Space);
 		//m_thiefKey = true;
 		m_needToSaveKey = true;
 		if (nextStep == GateKey)
@@ -48,17 +48,17 @@ void Thief::thiefNextStep(Board& board, int index, int nextStep, int player, int
 	case ContinueAndDelete:
 		if (m_needToSaveKey && m_amountOfKeys != 1)
 		{
-			saveThiefStep(board, index, row, col, player, GateKey);
+			saveThiefStep(board, row, col, player, GateKey);
 			m_needToSaveKey = false;
 			sumOfMoves++;
 			break;
 		}
-		saveThiefStep(board, index, row, col, player, Space);
+		saveThiefStep(board, row, col, player, Space);
 		break;
 	case ThiefHasKey:
 		if (m_amountOfKeys > 0)
 		{
-			saveThiefStep(board, index, row, col, player, Space);
+			saveThiefStep(board, row, col, player, Space);
 			m_amountOfKeys = 0;
 			m_needToSaveKey = false;
 		}
@@ -68,9 +68,9 @@ void Thief::thiefNextStep(Board& board, int index, int nextStep, int player, int
 
 }
 //___________________________________________________________________________________
-void Thief::saveThiefStep(Board& board, int index, int row, int col, int player, int key)
+void Thief::saveThiefStep(Board& board, int row, int col, int player, int key)
 {
-	board.changeBoardItem(index, this->getThiefLocation().getRow() + row, this->getThiefLocation().getCol() + col, player);
-	board.changeBoardItem(index, this->getThiefLocation().getRow(), this->getThiefLocation().getCol(), key);
+	board.changeBoardItem(this->getThiefLocation().getRow() + row, this->getThiefLocation().getCol() + col, player);
+	board.changeBoardItem(this->getThiefLocation().getRow(), this->getThiefLocation().getCol(), key);
 	this->setLocation(Location(this->getThiefLocation().getRow() + row, this->getThiefLocation().getCol() + col));
 }

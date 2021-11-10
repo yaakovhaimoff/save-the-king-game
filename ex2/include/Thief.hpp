@@ -15,8 +15,8 @@ public:
     void setLocation(const Location &);
     Location getThiefLocation();
     int isThiefMoveValid(int);
-    void thiefNextStep(Board&, int, int, int, int&, int, int);
-    void saveThiefStep(Board&, int, int, int, int, int);
+    void thiefNextStep(Board&, int, int, int&, int, int);
+    void saveThiefStep(Board&, int, int, int, int);
 
 private:
     Location m_ThiefLocation;

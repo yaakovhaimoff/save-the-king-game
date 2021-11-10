@@ -20,14 +20,13 @@ class Controller
 {
 public:
 	Controller();
-	void findPlayersLocation(int);
-	void playLevel(int);
-
+	void findPlayersLocation();
+	void playLevel();
 	void runGame();
 	int decideActivePlayer(int&);
 	bool handleKeyBoardKey(int);
-	void handleSpecialKey(int, int, int&);
-	void movePlayerInBoard(int, int, int&, int, int, bool);
+	void handleSpecialKey(int, int&);
+	void movePlayerInBoard(int, int&, int, int, bool);
 
 private:
 	Board m_board;

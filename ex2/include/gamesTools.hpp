@@ -1,6 +1,5 @@
 #pragma once
 
-const int amountOfLevels = 3;
 const int numOfPlayers = 4;
 
 enum gameTools

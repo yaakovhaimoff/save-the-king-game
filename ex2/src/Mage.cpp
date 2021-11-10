@@ -28,7 +28,7 @@ int Mage::isMageMoveValid(int nextStep)
 	return DontDoNothing;
 }
 //____________________________________________________________________________________
-void Mage::mageNextStep(Board& board, int index, int nextStep, int player, int& sumOfMoves, int row, int col)
+void Mage::mageNextStep(Board& board, int nextStep, int player, int& sumOfMoves, int row, int col)
 {
 	int decideMove = isMageMoveValid(nextStep);
 	switch (decideMove)
@@ -36,7 +36,7 @@ void Mage::mageNextStep(Board& board, int index, int nextStep, int player, int& 
 	case DontDoNothing:
 		break;
 	case StepAndSaveKey:
-		saveMageStep(board, index, row, col, player, Space);
+		saveMageStep(board,row, col, player, Space);
 		m_needToSaveKey = true;
 		sumOfMoves++;
 		break;
@@ -44,20 +44,20 @@ void Mage::mageNextStep(Board& board, int index, int nextStep, int player, int& 
 		sumOfMoves++;
 		if (m_needToSaveKey)
 		{
-			saveMageStep(board, index, row, col, player, GateKey);
+			saveMageStep(board,row, col, player, GateKey);
 			m_needToSaveKey = false;
 			break;
 		}
-		saveMageStep(board, index, row, col, player, Space);
+		saveMageStep(board,  row, col, player, Space);
 		break;
 	case JumpToNext:
 		break;
 	}
 }
 //_____________________________________________________________________________
-void Mage::saveMageStep(Board &board, int index, int row, int col, int player, int key)
+void Mage::saveMageStep(Board &board, int row, int col, int player, int key)
 {
-	board.changeBoardItem(index, this->getMageLocation().getRow() + row, this->getMageLocation().getCol() + col, player);
-	board.changeBoardItem(index, this->getMageLocation().getRow(), this->getMageLocation().getCol(), key);
+	board.changeBoardItem( this->getMageLocation().getRow() + row, this->getMageLocation().getCol() + col, player);
+	board.changeBoardItem( this->getMageLocation().getRow(), this->getMageLocation().getCol(), key);
 	this->setLocation(Location(this->getMageLocation().getRow() + row, this->getMageLocation().getCol() + col));
 }

@@ -15,8 +15,8 @@ public:
     void setLocation(const Location &);
     Location getWarriorLocation();
     int isWarriorMoveValid(int);
-    void warriorNextStep(Board&, int, int, int, int&, int, int);
-    void saveWarriorStep(Board&, int, int, int, int, int);
+    void warriorNextStep(Board&, int, int, int&, int, int);
+    void saveWarriorStep(Board&, int, int, int, int);
 
 private:
     Location m_WarriorLocation;

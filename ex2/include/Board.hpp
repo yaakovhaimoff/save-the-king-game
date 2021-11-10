@@ -12,20 +12,19 @@
 #include "Location.hpp"
 
 class Board
-{
-    
+{  
 public:
-    void printBoard(int);
+    Board();
+    void getLinesFromFiles();
+    void printBoard();
     void printMessages(int, int, bool);
-    void getLinesFromFiles(int);
-    Location getPlayerLoctionInBoard(int, int);
-    void changeBoardItem(int, int, int, int);
-    int getBoardItem(int, int, int);
-    //    void clear();
+    Location getPlayerLoctionInBoard(int);
+    void changeBoardItem(int, int, int);
+    int getBoardItem(int, int);
+    void clearBoard();
+    bool checkEndOfFile();
 private:
     std::ifstream m_boardSrcFiles;
-    std::ifstream m_level[3];
-    std::string m_levelName[3];
-    std::vector<std::string> m_textBoard[3];
+    std::vector<std::string> m_textBoard;
     
 };

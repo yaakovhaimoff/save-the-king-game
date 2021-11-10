@@ -2,34 +2,31 @@
 
 //______________________
 Controller::Controller()
-{
-	for (int level = 0; level < amountOfLevels; level++)
-	{
-		m_board.getLinesFromFiles(level);
-	}
-}
+{}
 //________________________
 void Controller::runGame()
 {
-	for (int level = 0; level < amountOfLevels; level++)
+	while (!m_board.checkEndOfFile())
 	{
-		findPlayersLocation(level);
+		m_board.getLinesFromFiles();
+		findPlayersLocation();
 		m_board.printMessages('K', 0, false);
-		m_board.printBoard(level);
-		playLevel(level);
+		m_board.printBoard();
+		playLevel();
 		std::system("cls");
+		m_board.clearBoard();
 	}
 }
 //_____________________________________________
-void Controller::findPlayersLocation(int index)
+void Controller::findPlayersLocation()
 {
-	m_King.setLocation(Location(m_board.getPlayerLoctionInBoard(index, KING)));
-	m_Mage.setLocation(Location(m_board.getPlayerLoctionInBoard(index, MAGE)));
-	m_Warrior.setLocation(Location(m_board.getPlayerLoctionInBoard(index, WARRIOR)));
-	m_Thief.setLocation(Location(m_board.getPlayerLoctionInBoard(index, THIEF)));
+	m_King.setLocation(Location(m_board.getPlayerLoctionInBoard(KING)));
+	m_Mage.setLocation(Location(m_board.getPlayerLoctionInBoard(MAGE)));
+	m_Warrior.setLocation(Location(m_board.getPlayerLoctionInBoard(WARRIOR)));
+	m_Thief.setLocation(Location(m_board.getPlayerLoctionInBoard(THIEF)));
 }
 //________________________________________
-void Controller::playLevel(int indexLevel)
+void Controller::playLevel()
 {
 	int countKeyBoard = 0,
 		activePlayer = 0,
@@ -43,7 +40,7 @@ void Controller::playLevel(int indexLevel)
 			activePlayer = decideActivePlayer(countKeyBoard);
 			break;
 		case SpecialKey:
-			handleSpecialKey(activePlayer, indexLevel, sumOfMoves);
+			handleSpecialKey(activePlayer, sumOfMoves);
 			break;
 		default:
 			exit = handleKeyBoardKey(c);
@@ -74,7 +71,7 @@ int Controller::decideActivePlayer(int& countKeyBoard)
 	return 1;
 }
 //________________________________
-void Controller::handleSpecialKey(int activePlayer, int index, int& sumOfMoves)
+void Controller::handleSpecialKey(int activePlayer, int& sumOfMoves)
 {
 	static bool thiefHasKey = false;
 	auto c = _getch();
@@ -82,22 +79,22 @@ void Controller::handleSpecialKey(int activePlayer, int index, int& sumOfMoves)
 	{
 	case KB_Up:
 		// Arrow Up pressed
-		movePlayerInBoard(index, activePlayer, sumOfMoves, Up, 0, thiefHasKey);
+		movePlayerInBoard(activePlayer, sumOfMoves, Up, 0, thiefHasKey);
 		break;
 
 	case KB_Down:
 		// Arrow Down pressed
-		movePlayerInBoard(index, activePlayer, sumOfMoves, Down, 0, thiefHasKey);
+		movePlayerInBoard(activePlayer, sumOfMoves, Down, 0, thiefHasKey);
 		break;
 
 	case KB_Left:
 		// Arrow Left pressed
-		movePlayerInBoard(index, activePlayer, sumOfMoves, 0, Left, thiefHasKey);
+		movePlayerInBoard(activePlayer, sumOfMoves, 0, Left, thiefHasKey);
 		break;
 
 	case KB_Right:
 		// Arrow Right pressed
-		movePlayerInBoard(index, activePlayer, sumOfMoves, 0, Right, thiefHasKey);
+		movePlayerInBoard(activePlayer, sumOfMoves, 0, Right, thiefHasKey);
 		break;
 	}
 }
@@ -118,29 +115,29 @@ bool Controller::handleKeyBoardKey(int c)
 	return false;
 }
 //_________________________________________________________________________
-void Controller::movePlayerInBoard(int index, int player, int& sumOfMoves, int row, int col, bool thiefHasKey)
+void Controller::movePlayerInBoard(int player, int& sumOfMoves, int row, int col, bool thiefHasKey)
 {
 	int nextStep;
 	switch (player)
 	{
 	case KING:
-		nextStep = m_board.getBoardItem(index, m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col);
-		m_King.kingNextStep(m_board, index, nextStep, player, sumOfMoves, row, col);
+		nextStep = m_board.getBoardItem(m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col);
+		m_King.kingNextStep(m_board, nextStep, player, sumOfMoves, row, col);
 		break;
 	case MAGE:
-		nextStep = m_board.getBoardItem(index, m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col);
-		m_Mage.mageNextStep(m_board, index, nextStep, player, sumOfMoves, row, col);
+		nextStep = m_board.getBoardItem(m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col);
+		m_Mage.mageNextStep(m_board, nextStep, player, sumOfMoves, row, col);
 		break;
 	case WARRIOR:
-		nextStep = m_board.getBoardItem(index, m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col);
-		m_Warrior.warriorNextStep(m_board, index, nextStep, player, sumOfMoves, row, col);
+		nextStep = m_board.getBoardItem(m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col);
+		m_Warrior.warriorNextStep(m_board, nextStep, player, sumOfMoves, row, col);
 		break;
 	case THIEF:
-		nextStep = m_board.getBoardItem(index, m_Thief.getThiefLocation().getRow() + row, m_Thief.getThiefLocation().getCol() + col);
-		m_Thief.thiefNextStep(m_board, index, nextStep, player, sumOfMoves, row, col);
+		nextStep = m_board.getBoardItem(m_Thief.getThiefLocation().getRow() + row, m_Thief.getThiefLocation().getCol() + col);
+		m_Thief.thiefNextStep(m_board, nextStep, player, sumOfMoves, row, col);
 		break;
 	}
 	std::system("cls");
 	m_board.printMessages(player, sumOfMoves, thiefHasKey);
-	m_board.printBoard(index);
+	m_board.printBoard();
 }

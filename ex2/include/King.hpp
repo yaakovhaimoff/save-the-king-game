@@ -15,8 +15,8 @@ public:
     void setLocation(const Location &);
     Location getKingLocation();
     int isKingMoveValid(int);
-    void kingNextStep(Board &, int, int, int, int&, int, int);
-    void saveKingStep(Board &, int, int, int, int, int);
+    void kingNextStep(Board &, int, int, int&, int, int);
+    void saveKingStep(Board &, int, int, int, int);
 
 private:
     Location m_KingLocation;

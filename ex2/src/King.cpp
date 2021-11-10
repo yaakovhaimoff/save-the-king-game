@@ -30,7 +30,7 @@ int King::isKingMoveValid(int nextStep)
 	return DontDoNothing;
 }
 //____________________________________________________________________
-void King::kingNextStep(Board& board, int index, int nextStep, int player, int &sumOfMoves, int row, int col)
+void King::kingNextStep(Board& board, int nextStep, int player, int &sumOfMoves, int row, int col)
 {
 	int decideMove = isKingMoveValid(nextStep);
 	switch (decideMove)
@@ -38,7 +38,7 @@ void King::kingNextStep(Board& board, int index, int nextStep, int player, int &
 	case DontDoNothing:
 		break;
 	case StepAndSaveKey:
-		saveKingStep(board, index, row, col, player, Space);
+		saveKingStep(board, row, col, player, Space);
 		m_needToSaveKey = true;
 		sumOfMoves++;
 		break;
@@ -46,27 +46,27 @@ void King::kingNextStep(Board& board, int index, int nextStep, int player, int &
 		sumOfMoves++;
 		if (m_needToSaveKey)
 		{
-			saveKingStep(board, index, row, col, player, GateKey);
+			saveKingStep(board, row, col, player, GateKey);
 			m_needToSaveKey = false;
 			break;
 		}
-		saveKingStep(board, index, row, col, player, Space);
+		saveKingStep(board, row, col, player, Space);
 		break;
 	case JumpToNext:
 		break;
 	case GameOver:
-		saveKingStep(board, index, row, col, player, Space);
+		saveKingStep(board, row, col, player, Space);
 		std::system("cls");
-		board.printBoard(index);
+		board.printBoard();
 		break;
 	}
 
 }
 //_______________________________________________________________________
-void King::saveKingStep(Board &board, int index, int row, int col, int player, int key)
+void King::saveKingStep(Board &board, int row, int col, int player, int key)
 {
-	board.changeBoardItem(index, this->getKingLocation().getRow() + row, this->getKingLocation().getCol() + col, player);
-	board.changeBoardItem(index, this->getKingLocation().getRow(), this->getKingLocation().getCol(), key);
+	board.changeBoardItem(this->getKingLocation().getRow() + row, this->getKingLocation().getCol() + col, player);
+	board.changeBoardItem(this->getKingLocation().getRow(), this->getKingLocation().getCol(), key);
 	this->setLocation(Location(this->getKingLocation().getRow() + row, this->getKingLocation().getCol() + col));
 }
 

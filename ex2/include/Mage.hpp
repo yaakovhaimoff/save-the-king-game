@@ -15,8 +15,8 @@ public:
     int isMageMoveValid(int);
     void setLocation(const Location &);
     Location getMageLocation();
-    void mageNextStep(Board &, int, int, int, int&, int, int );
-    void saveMageStep(Board &, int, int, int, int, int);
+    void mageNextStep(Board &, int, int, int&, int, int );
+    void saveMageStep(Board &, int, int, int, int);
 
 private:
     Location m_MageLocation;
