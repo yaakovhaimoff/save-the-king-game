@@ -10,3 +10,10 @@
 5	1811	6582454808617762	CMakeFiles/ex2.dir/src/Warrior.cpp.obj	1deda40f470ee2ee
 1285	1544	6582454996274354	ex2.exe	53520674e0b7ef8c
 0	150	6582455900877597	build.ninja	deb772454def01e5
+8	1862	6582464538510910	CMakeFiles/ex2.dir/src/Warrior.cpp.obj	1deda40f470ee2ee
+6	1868	6582464538430742	CMakeFiles/ex2.dir/src/Mage.cpp.obj	248053a204e55aab
+5	1876	6582464538430742	CMakeFiles/ex2.dir/src/Thief.cpp.obj	ed9800674d731efc
+2	1886	6582464538711688	CMakeFiles/ex2.dir/src/King.cpp.obj	93a289f26be2886f
+3	2357	6582464543547043	CMakeFiles/ex2.dir/src/Controller.cpp.obj	f45f79c41e056445
+0	2412	6582464544060124	CMakeFiles/ex2.dir/src/main.cpp.obj	3ed869c57758d2d7
+2412	2671	6582464545908627	ex2.exe	53520674e0b7ef8c

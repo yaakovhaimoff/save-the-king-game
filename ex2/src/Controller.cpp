@@ -25,7 +25,7 @@ void Controller::findPlayersLocation()
 	m_Warrior.setLocation(Location(m_board.getPlayerLoctionInBoard(WARRIOR)));
 	m_Thief.setLocation(Location(m_board.getPlayerLoctionInBoard(THIEF)));
 }
-//________________________________________
+//__________________________
 void Controller::playLevel()
 {
 	int countKeyBoard = 0,
@@ -70,7 +70,7 @@ int Controller::decideActivePlayer(int& countKeyBoard)
 	}
 	return 1;
 }
-//________________________________
+//_________________________________________________________________
 void Controller::handleSpecialKey(int activePlayer, int& sumOfMoves)
 {
 	static bool thiefHasKey = false;
@@ -114,8 +114,9 @@ bool Controller::handleKeyBoardKey(int c)
 
 	return false;
 }
-//_________________________________________________________________________
-void Controller::movePlayerInBoard(int player, int& sumOfMoves, int row, int col, bool thiefHasKey)
+//______________________________________________________________________
+void Controller::movePlayerInBoard(int player, int& sumOfMoves, int row,
+	int col, bool thiefHasKey)
 {
 	int nextStep;
 	switch (player)

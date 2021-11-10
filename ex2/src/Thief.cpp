@@ -1,20 +1,26 @@
 #include "Thief.hpp"
 
-//___________________________________
-Thief::Thief() : m_ThiefLocation(0, 0), m_needToSaveKey(false),
-m_thiefKey(false), m_amountOfKeys(0)
+//____________
+Thief::Thief()
+	: m_ThiefLocation(0, 0), m_needToSaveKey(false),
+	m_amountOfKeys(0)
 {}
 //_______________________________________________
 void Thief::setLocation(const Location& location)
 {
 	m_ThiefLocation = location;
 }
-//_______________________________________
+//________________________________
 Location Thief::getThiefLocation()
 {
 	return m_ThiefLocation;
 }
-//____________________________________
+//__________________________
+bool Thief::getThiegHasKey()
+{
+
+}
+//_______________________________________
 int Thief::isThiefMoveValid(int nextStep)
 {
 	switch (nextStep)
@@ -29,8 +35,9 @@ int Thief::isThiefMoveValid(int nextStep)
 	}
 	return DontDoNothing;
 }
-//________________________________________________________________________________
-void Thief::thiefNextStep(Board& board, int nextStep, int player, int& sumOfMoves, int row, int col)
+//_______________________________________________________________
+void Thief::thiefNextStep(Board& board, int nextStep, int player,
+	int& sumOfMoves, int row, int col)
 {
 	int decideMove = isThiefMoveValid(nextStep);
 	switch (decideMove)
@@ -39,7 +46,6 @@ void Thief::thiefNextStep(Board& board, int nextStep, int player, int& sumOfMove
 		break;
 	case StepAndSaveKey:
 		saveThiefStep(board, row, col, player, Space);
-		//m_thiefKey = true;
 		m_needToSaveKey = true;
 		if (nextStep == GateKey)
 			m_amountOfKeys++;
@@ -63,11 +69,11 @@ void Thief::thiefNextStep(Board& board, int nextStep, int player, int& sumOfMove
 			m_needToSaveKey = false;
 		}
 	case JumpToNext:
+
 		break;
 	}
-
 }
-//___________________________________________________________________________________
+//____________________________________________________________________________
 void Thief::saveThiefStep(Board& board, int row, int col, int player, int key)
 {
 	board.changeBoardItem(this->getThiefLocation().getRow() + row, this->getThiefLocation().getCol() + col, player);

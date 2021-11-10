@@ -6,7 +6,8 @@ using std::endl;
 using std::ifstream;
 using std::string;
 using std::vector;
-//_____________
+
+//____________
 Board::Board() 
 : m_boardSrcFiles("Levels.txt"){}
 // _____________________________
@@ -18,7 +19,7 @@ void Board::getLinesFromFiles()
 		m_textBoard.push_back(line);
 	}
 }
-//_______________________________
+//______________________
 void Board::printBoard()
 {
 	for (int row = 0; row < this->m_textBoard.size(); row++)
@@ -26,7 +27,7 @@ void Board::printBoard()
 		cout << this->m_textBoard[row] << endl;
 	}
 }
-//_______________________________________
+//_________________________________________________________________
 void Board::printMessages(int activePlayer, int moves, bool hasKey)
 {
 	char c = activePlayer;
@@ -35,7 +36,7 @@ void Board::printMessages(int activePlayer, int moves, bool hasKey)
 	cout << "Does the thief have a key: " << hasKey << endl;
 
 }
-//_________________________________________________
+//____________________________________________________
 Location Board::getPlayerLoctionInBoard(int playerKey)
 {
 	for (int row = 0; row < m_textBoard.size(); row++)
@@ -48,12 +49,12 @@ Location Board::getPlayerLoctionInBoard(int playerKey)
 	}
 	return Location(0, 0);
 }
-//__________________________________________________________________
+//_______________________________________________________
 void Board::changeBoardItem(int row, int col, int player)
 {
 	this->m_textBoard[row][col] = player;
 }
-//__________________________________________________
+//________________________________________
 int Board::getBoardItem(int row, int col)
 {
 	return m_textBoard[row][col];
@@ -63,7 +64,7 @@ void Board::clearBoard()
 {
 	this->m_textBoard.clear();
 }
-//___________________________
+//__________________________
 bool Board::checkEndOfFile()
 {
 	return m_boardSrcFiles.eof();

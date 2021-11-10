@@ -17,10 +17,10 @@ public:
     int isThiefMoveValid(int);
     void thiefNextStep(Board&, int, int, int&, int, int);
     void saveThiefStep(Board&, int, int, int, int);
+    bool getThiegHasKey();
 
 private:
     Location m_ThiefLocation;
     bool m_needToSaveKey;
-    bool m_thiefKey;
     int m_amountOfKeys;
 };

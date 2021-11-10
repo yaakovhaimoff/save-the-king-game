@@ -26,5 +26,5 @@ public:
 private:
     std::ifstream m_boardSrcFiles;
     std::vector<std::string> m_textBoard;
-    
+    Location m_telporterArr;  
 };
