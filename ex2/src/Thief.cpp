@@ -18,6 +18,7 @@ Location Thief::getThiefLocation()
 //__________________________
 bool Thief::getThiegHasKey()
 {
+	return m_amountOfKeys > 0;
 
 }
 //_______________________________________
@@ -30,8 +31,9 @@ int Thief::isThiefMoveValid(int nextStep)
 	case Gate:
 		return ThiefHasKey;
 	case GateKey:
-	case Teleport:
 		return StepAndSaveKey;
+	case Teleport:
+		return JumpToNext;
 	}
 	return DontDoNothing;
 }
@@ -69,6 +71,10 @@ void Thief::thiefNextStep(Board& board, int nextStep, int player,
 			m_needToSaveKey = false;
 		}
 	case JumpToNext:
+		Location nextTel = board.nextTeleportLocation(Location(m_ThiefLocation.getRow() + row, m_ThiefLocation.getCol() + col));
+		row = (nextTel.getRow() - m_ThiefLocation.getRow());
+		col = (nextTel.getCol() - m_ThiefLocation.getCol());
+		saveThiefStep(board, row, col + 1, player, Space);
 
 		break;
 	}

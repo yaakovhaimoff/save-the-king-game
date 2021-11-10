@@ -1,11 +1,12 @@
-#include <stdio.h>
 #pragma once
+#include <stdio.h>
 
 struct Location
 {
 public:
     int getRow();
     int getCol();
+    Location() = default;
     Location(int row, int col) : m_row(row), m_col(col) {}
     
     

@@ -42,7 +42,8 @@ enum playersKeys
 
 enum Keys
 {
-	PlayersKey = 112,
+	Playerp = 112,
+	PlayerP = 80,
 	KB_Escape = 27,
 	SpecialKey = 224,
 };

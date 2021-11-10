@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <cstdlib>
+#include <cmath>
 
 #include "Location.hpp"
 #include "Board.hpp"
@@ -21,5 +22,4 @@ public:
 private:
     Location m_KingLocation;
     bool m_needToSaveKey;
-
 };

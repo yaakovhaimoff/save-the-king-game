@@ -1,8 +1,8 @@
 #include "King.hpp"
 
 //________________________________
-King::King() : m_KingLocation(0, 0), m_needToSaveKey(false)
-{}
+King::King() : m_KingLocation(0, 0),
+m_needToSaveKey(false) {}
 //______________________________________________
 void King::setLocation(const Location& location)
 {
@@ -30,7 +30,7 @@ int King::isKingMoveValid(int nextStep)
 	return DontDoNothing;
 }
 //____________________________________________________________________
-void King::kingNextStep(Board& board, int nextStep, int player, int &sumOfMoves, int row, int col)
+void King::kingNextStep(Board& board, int nextStep, int player, int& sumOfMoves, int row, int col)
 {
 	int decideMove = isKingMoveValid(nextStep);
 	switch (decideMove)
@@ -53,6 +53,10 @@ void King::kingNextStep(Board& board, int nextStep, int player, int &sumOfMoves,
 		saveKingStep(board, row, col, player, Space);
 		break;
 	case JumpToNext:
+		Location nextTel = board.nextTeleportLocation(Location(m_KingLocation.getRow() + row, m_KingLocation.getCol() + col));
+		row = (nextTel.getRow() - m_KingLocation.getRow());
+		col = (nextTel.getCol() - m_KingLocation.getCol());
+		saveKingStep(board, row, col + 1, player, Space);
 		break;
 	case GameOver:
 		saveKingStep(board, row, col, player, Space);
@@ -63,7 +67,7 @@ void King::kingNextStep(Board& board, int nextStep, int player, int &sumOfMoves,
 
 }
 //_______________________________________________________________________
-void King::saveKingStep(Board &board, int row, int col, int player, int key)
+void King::saveKingStep(Board& board, int row, int col, int player, int key)
 {
 	board.changeBoardItem(this->getKingLocation().getRow() + row, this->getKingLocation().getCol() + col, player);
 	board.changeBoardItem(this->getKingLocation().getRow(), this->getKingLocation().getCol(), key);

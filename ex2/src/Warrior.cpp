@@ -21,9 +21,10 @@ int Warrior::isWarriorMoveValid(int nextStep)
 	case Space:
 		return ContinueAndDelete;
 	case Tile:
-	case Teleport:
 	case GateKey:
 		return StepAndSaveKey;
+	case Teleport:
+		return JumpToNext;
 	}
 	return DontDoNothing;
 }
@@ -51,9 +52,12 @@ void Warrior::warriorNextStep(Board& board, int nextStep, int player, int& sumOf
 		saveWarriorStep(board, row, col, player, Space);
 		break;
 	case JumpToNext:
+		Location nextTel = board.nextTeleportLocation(Location(m_WarriorLocation.getRow() + row, m_WarriorLocation.getCol() + col));
+		row = (nextTel.getRow() - m_WarriorLocation.getRow());
+		col = (nextTel.getCol() - m_WarriorLocation.getCol());
+		saveWarriorStep(board, row, col + 1, player, Space);
 		break;
 	}
-
 }
 //___________________________________________________________________________________
 void Warrior::saveWarriorStep(Board &board, int row, int col, int player, int key)

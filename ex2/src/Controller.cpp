@@ -10,6 +10,7 @@ void Controller::runGame()
 	{
 		m_board.getLinesFromFiles();
 		findPlayersLocation();
+		m_board.createTeleportArr();
 		m_board.printMessages('K', 0, false);
 		m_board.printBoard();
 		playLevel();
@@ -17,7 +18,7 @@ void Controller::runGame()
 		m_board.clearBoard();
 	}
 }
-//_____________________________________________
+//____________________________________
 void Controller::findPlayersLocation()
 {
 	m_King.setLocation(Location(m_board.getPlayerLoctionInBoard(KING)));
@@ -36,7 +37,8 @@ void Controller::playLevel()
 		auto c = _getch();
 		switch (c)
 		{
-		case PlayersKey:
+		case Playerp:
+		case PlayerP:
 			activePlayer = decideActivePlayer(countKeyBoard);
 			break;
 		case SpecialKey:

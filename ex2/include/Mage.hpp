@@ -21,5 +21,6 @@ public:
 private:
     Location m_MageLocation;
     bool m_needToSaveKey;
+    bool m_teleport;
 
 };
