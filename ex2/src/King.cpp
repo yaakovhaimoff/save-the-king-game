@@ -18,14 +18,6 @@ int King::isKingMoveValid(int nextStep)
 {
 	switch (nextStep)
 	{
-	case MAGE:
-	case WARRIOR:
-	case THIEF:
-	case Fire:
-	case Gate:
-	case Tile:
-	case Wall:
-		return DontDoNothing;
 	case Space:
 		return ContinueAndDelete;
 	case GateKey:
@@ -35,7 +27,7 @@ int King::isKingMoveValid(int nextStep)
 	case Throne:
 		return GameOver;
 	}
-	return 1;
+	return DontDoNothing;
 }
 //____________________________________________________________________
 void King::kingNextStep(Board& board, int index, int nextStep, int player, int &sumOfMoves, int row, int col)

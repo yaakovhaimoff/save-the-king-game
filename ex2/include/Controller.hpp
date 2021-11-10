@@ -10,7 +10,6 @@
 // include files
 #include "Board.hpp"
 #include "King.hpp"
-#include "Player.hpp"
 #include "Mage.hpp"
 #include "Thief.hpp"
 #include "Warrior.hpp"
@@ -33,7 +32,6 @@ public:
 private:
 	Board m_board;
 	King m_King;
-	Player m_Player;
 	Mage m_Mage;
 	Thief m_Thief;
 	Warrior m_Warrior;

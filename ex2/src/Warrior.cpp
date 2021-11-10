@@ -18,14 +18,6 @@ int Warrior::isWarriorMoveValid(int nextStep)
 {
 	switch (nextStep)
 	{
-	case MAGE:
-	case KING:
-	case THIEF:
-	case Gate:
-	case Wall:
-	case Throne:
-	case Fire:
-		return DontDoNothing;
 	case Space:
 		return ContinueAndDelete;
 	case Tile:
@@ -33,7 +25,7 @@ int Warrior::isWarriorMoveValid(int nextStep)
 	case GateKey:
 		return StepAndSaveKey;
 	}
-	return 1;
+	return DontDoNothing;
 }
 //________________________________________________________________________________
 void Warrior::warriorNextStep(Board& board, int index, int nextStep, int player, int& sumOfMoves, int row, int col)

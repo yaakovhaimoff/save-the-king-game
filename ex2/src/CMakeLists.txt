@@ -3,7 +3,6 @@ target_sources (${CMAKE_PROJECT_NAME} PRIVATE "main.cpp"
                                               "King.cpp"
                                               "Location.cpp"
                                               "Board.cpp"
-                                              "Player.cpp"
                                               "Thief.cpp"
                                               "Mage.cpp"
                                               "Warrior.cpp")

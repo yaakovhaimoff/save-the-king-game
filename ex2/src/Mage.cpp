@@ -18,14 +18,6 @@ int Mage::isMageMoveValid(int nextStep)
 {
 	switch (nextStep)
 	{
-	case WARRIOR:
-	case KING:
-	case THIEF:
-	case Gate:
-	case Tile:
-	case Wall:
-	case Throne:
-		return DontDoNothing;
 	case Space:
 	case Fire:
 		return ContinueAndDelete;
@@ -33,7 +25,7 @@ int Mage::isMageMoveValid(int nextStep)
 	case GateKey:
 		return StepAndSaveKey;
 	}
-	return 1;
+	return DontDoNothing;
 }
 //____________________________________________________________________________________
 void Mage::mageNextStep(Board& board, int index, int nextStep, int player, int& sumOfMoves, int row, int col)

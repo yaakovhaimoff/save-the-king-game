@@ -2,7 +2,7 @@
 
 //___________________________________
 Thief::Thief() : m_ThiefLocation(0, 0), m_needToSaveKey(false),
-m_thiefKey(false)
+m_thiefKey(false), m_amountOfKeys(0)
 {}
 //_______________________________________________
 void Thief::setLocation(const Location& location)
@@ -19,14 +19,6 @@ int Thief::isThiefMoveValid(int nextStep)
 {
 	switch (nextStep)
 	{
-	case MAGE:
-	case KING:
-	case WARRIOR:
-	case Wall:
-	case Throne:
-	case Fire:
-	case Tile:
-		return DontDoNothing;
 	case Space:
 		return ContinueAndDelete;
 	case Gate:
@@ -35,7 +27,7 @@ int Thief::isThiefMoveValid(int nextStep)
 	case Teleport:
 		return StepAndSaveKey;
 	}
-	return 1;
+	return DontDoNothing;
 }
 //________________________________________________________________________________
 void Thief::thiefNextStep(Board& board, int index, int nextStep, int player, int& sumOfMoves, int row, int col)
@@ -47,13 +39,14 @@ void Thief::thiefNextStep(Board& board, int index, int nextStep, int player, int
 		break;
 	case StepAndSaveKey:
 		saveThiefStep(board, index, row, col, player, Space);
+		//m_thiefKey = true;
 		m_needToSaveKey = true;
+		if (nextStep == GateKey)
+			m_amountOfKeys++;
 		sumOfMoves++;
 		break;
 	case ContinueAndDelete:
-		if (nextStep == GateKey)
-			m_thiefKey = true;
-		if (m_needToSaveKey && m_thiefKey)
+		if (m_needToSaveKey && m_amountOfKeys != 1)
 		{
 			saveThiefStep(board, index, row, col, player, GateKey);
 			m_needToSaveKey = false;
@@ -63,10 +56,11 @@ void Thief::thiefNextStep(Board& board, int index, int nextStep, int player, int
 		saveThiefStep(board, index, row, col, player, Space);
 		break;
 	case ThiefHasKey:
-		if (nextStep == Gate && m_thiefKey)
+		if (m_amountOfKeys > 0)
 		{
-			saveThiefStep(board, index, row, col, player, Space); saveThiefStep(board, index, row, col, player, Space);
-			m_thiefKey = false;
+			saveThiefStep(board, index, row, col, player, Space);
+			m_amountOfKeys = 0;
+			m_needToSaveKey = false;
 		}
 	case JumpToNext:
 		break;
