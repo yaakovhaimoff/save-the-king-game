@@ -12,11 +12,12 @@ class Mage
 public:
     
     Mage();
-    int isMageMoveValid(int);
+    int isMageMoveValid(const int);
     void setLocation(const Location &);
     Location getMageLocation();
-    void mageNextStep(Board &, int, int, int&, int, int );
-    void saveMageStep(Board &, int, int, int, int);
+    void mageNextStep(Board &, const int, const int, int&, int, int );
+    void saveMageStep(Board &, const int, const int, const int, const int);
+    void restartMembersToNextLevel();
 
 private:
     Location m_MageLocation;

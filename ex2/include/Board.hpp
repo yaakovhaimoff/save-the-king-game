@@ -21,7 +21,7 @@ public:
     Location getPlayerLoctionInBoard(int);
     void changeBoardItem(int, int, int);
     int getBoardItem(int, int);
-    void clearBoard();
+    void resetBoard();
     bool checkEndOfFile();
     void createTeleportArr();
     int findAmountOfTeleports();

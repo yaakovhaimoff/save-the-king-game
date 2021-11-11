@@ -14,10 +14,11 @@ public:
     Thief();
     void setLocation(const Location &);
     Location getThiefLocation();
-    int isThiefMoveValid(int);
-    void thiefNextStep(Board&, int, int, int&, int, int);
-    void saveThiefStep(Board&, int, int, int, int);
+    int isThiefMoveValid(const int);
+    void thiefNextStep(Board&, const int, const int, int&, int, int);
+    void saveThiefStep(Board&, const int, const int, const int, const int);
     bool checkIfTheThiefHasAkey();
+    void restartMembersToNextLevel();
 
 private:
     Location m_ThiefLocation;

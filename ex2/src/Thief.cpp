@@ -4,12 +4,12 @@
 //____________
 Thief::Thief()
 	: m_ThiefLocation(0, 0), m_needToSaveKey(false),
-	  m_amountOfKeys(0)
+	m_amountOfKeys(0)
 {
 }
 // setting the Thief loaction from the board
 //_______________________________________________
-void Thief::setLocation(const Location &location)
+void Thief::setLocation(const Location& location)
 {
 	m_ThiefLocation = location;
 }
@@ -19,16 +19,16 @@ Location Thief::getThiefLocation()
 {
 	return m_ThiefLocation;
 }
-//
-//__________________________
+// returning if thief has a key
+//__________________________________
 bool Thief::checkIfTheThiefHasAkey()
 {
-	return m_amountOfKeys > 0 ? true : false;
+	return m_amountOfKeys > 0;
 }
 // checking what is the next step,
 // and returמing its case to thiefNextStep to handle it
 //_______________________________________
-int Thief::isThiefMoveValid(int nextStep)
+int Thief::isThiefMoveValid(const int nextStep)
 {
 	switch (nextStep)
 	{
@@ -48,10 +48,10 @@ int Thief::isThiefMoveValid(int nextStep)
 // the move will go to its case, and in accordance to its case of move the
 // the keys will be sent to saveThiefStep.
 //_______________________________________________________________
-void Thief::thiefNextStep(Board &board, int nextStep, int player,
-						  int &sumOfMoves, int row, int col)
+void Thief::thiefNextStep(Board& board, const int nextStep, const int player,
+	int& sumOfMoves, int row, int col)
 {
-	int decideMove = isThiefMoveValid(nextStep);
+	int decideMove = this->isThiefMoveValid(nextStep);
 	switch (decideMove)
 	{
 	case DoNothing:
@@ -59,7 +59,7 @@ void Thief::thiefNextStep(Board &board, int nextStep, int player,
 		// checking if the last move was GateKey or Ork
 		// if it was a key will be send to be printed on the board
 	case StepAndSaveKey:
-		saveThiefStep(board, row, col, player, Space);
+		this->saveThiefStep(board, row, col, player, Space);
 		m_needToSaveKey = true;
 		if (nextStep == GateKey)
 			m_amountOfKeys++;
@@ -71,19 +71,19 @@ void Thief::thiefNextStep(Board &board, int nextStep, int player,
 		// the thief won't eat more keys until he uses his
 		if (m_needToSaveKey && m_amountOfKeys != 1)
 		{
-			saveThiefStep(board, row, col, player, GateKey);
+			this->saveThiefStep(board, row, col, player, GateKey);
 			m_needToSaveKey = false;
 			sumOfMoves++;
 			break;
 		}
-		saveThiefStep(board, row, col, player, Space);
+		this->saveThiefStep(board, row, col, player, Space);
 		break;
 		//  the thief will use his key to open the Gate and the amount
 		// of his keys will restarted to zero
 	case ThiefHasKey:
 		if (m_amountOfKeys > 0)
 		{
-			saveThiefStep(board, row, col, player, Space);
+			this->saveThiefStep(board, row, col, player, Space);
 			m_amountOfKeys = 0;
 			m_needToSaveKey = false;
 		}
@@ -94,15 +94,22 @@ void Thief::thiefNextStep(Board &board, int nextStep, int player,
 		Location nextTel = board.nextTeleportLocation(Location(m_ThiefLocation.getRow() + row, m_ThiefLocation.getCol() + col));
 		row = (nextTel.getRow() - m_ThiefLocation.getRow());
 		col = (nextTel.getCol() - m_ThiefLocation.getCol());
-		saveThiefStep(board, row, col + 1, player, Space);
+		this->saveThiefStep(board, row, col + 1, player, Space);
 		break;
 	}
 }
 // saving the move new data in the board and in the Thief member location 
-//____________________________________________________________________________
-void Thief::saveThiefStep(Board &board, int row, int col, int player, int key)
+//___________________________________________________________________________________________________
+void Thief::saveThiefStep(Board& board, const int row, const int col, const int player, const int key)
 {
 	board.changeBoardItem(this->getThiefLocation().getRow() + row, this->getThiefLocation().getCol() + col, player);
 	board.changeBoardItem(this->getThiefLocation().getRow(), this->getThiefLocation().getCol(), key);
 	this->setLocation(Location(this->getThiefLocation().getRow() + row, this->getThiefLocation().getCol() + col));
+}
+// restarting the members to their initialization in order to atart a new level
+//____________________________________
+void Thief::restartMembersToNextLevel()
+{
+	m_needToSaveKey = false;
+	m_amountOfKeys = 0;
 }

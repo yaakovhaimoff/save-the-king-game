@@ -79,9 +79,10 @@ int Board::getBoardItem(int row, int col)
 }
 // clearing the board vector, after every level
 //______________________
-void Board::clearBoard()
+void Board::resetBoard()
 {
 	this->m_textBoard.clear();
+	delete[] this->m_teleportLocations;
 }
 // returning if the file has ended
 // the games will run until the end of file

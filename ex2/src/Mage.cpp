@@ -19,7 +19,7 @@ Location Mage::getMageLocation()
 // checking what is the next step,
 // and returמing its case to mageNextStep to handle it
 //____________________________________
-int Mage::isMageMoveValid(int nextStep)
+int Mage::isMageMoveValid(const int nextStep)
 {
 	switch (nextStep)
 	{
@@ -36,10 +36,11 @@ int Mage::isMageMoveValid(int nextStep)
 // handled in this function accordingly,
 // the move will go to its case, and in accordance to its case of move the 
 // the keys will be sent to saveMageStep.
-//____________________________________________________________________________________
-void Mage::mageNextStep(Board& board, int nextStep, int player, int& sumOfMoves, int row, int col)
+//_________________________________________________________________________
+void Mage::mageNextStep(Board& board, const int nextStep, const int player,
+	int& sumOfMoves, int row, int col)
 {
-	int decideMove = isMageMoveValid(nextStep);
+	int decideMove = this->isMageMoveValid(nextStep);
 	switch (decideMove)
 	{
 	case DoNothing:
@@ -47,7 +48,7 @@ void Mage::mageNextStep(Board& board, int nextStep, int player, int& sumOfMoves,
 		// checking if the last move was GateKey
 		// if it was a key will be send to be printed on the board
 	case StepAndSaveKey:
-		saveMageStep(board, row, col, player, Space);
+		this->saveMageStep(board, row, col, player, Space);
 		nextStep == GateKey ? m_needToSaveKey = true : m_teleport = true;
 		sumOfMoves++;
 		break;
@@ -57,20 +58,27 @@ void Mage::mageNextStep(Board& board, int nextStep, int player, int& sumOfMoves,
 		// if it was one if them their key will be send to be printed on the board
 		if (m_needToSaveKey || m_teleport)
 		{
-			saveMageStep(board, row, col, player, m_needToSaveKey ? GateKey : Teleport);
+			this->saveMageStep(board, row, col, player, m_needToSaveKey ? GateKey : Teleport);
 			m_needToSaveKey = false;
 			m_teleport = false;
 			break;
 		}
-		saveMageStep(board, row, col, player, Space);
+		this->saveMageStep(board, row, col, player, Space);
 		break;
 	}
 }
 // saving the move new data in the board and in the Mage member location 
 //_____________________________________________________________________________
-void Mage::saveMageStep(Board& board, int row, int col, int player, int key)
+void Mage::saveMageStep(Board& board, const int row, const int col, const int player, const int key)
 {
 	board.changeBoardItem(this->getMageLocation().getRow() + row, this->getMageLocation().getCol() + col, player);
 	board.changeBoardItem(this->getMageLocation().getRow(), this->getMageLocation().getCol(), key);
 	this->setLocation(Location(this->getMageLocation().getRow() + row, this->getMageLocation().getCol() + col));
+}
+// restarting the members to their initialization in order to atart a new level
+//____________________________________
+void Mage::restartMembersToNextLevel()
+{
+	m_needToSaveKey = false;
+	m_teleport = false;
 }

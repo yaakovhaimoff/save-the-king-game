@@ -1,7 +1,7 @@
 #include "Controller.hpp"
 
 // the intialization of Controller members
-// are done at their classes
+// are done at their own classes
 //______________________
 Controller::Controller()
 {}
@@ -14,14 +14,14 @@ void Controller::runGame()
 	while (!m_board.checkEndOfFile())
 	{
 		m_board.getLinesFromFiles();
-		findPlayersLocation();
+		this->findPlayersLocation();
 		m_board.createTeleportArr();
 		m_board.printMessages(KING, 0, false);
 		m_board.printBoard();
-		playLevel();
-		std::system("cls");
-		m_board.clearBoard();
+		this->playLevel();
+		this->restartMembersToNewLevel();
 		m_board.printEndOfLevelMessage();
+		std::system("cls");
 	}
 }
 // getting the players location on the board
@@ -48,13 +48,13 @@ void Controller::playLevel()
 		{
 		case Playerp:
 		case PlayerP:
-			activePlayer = decideActivePlayer(countKeyBoard);
+			activePlayer = this->decideActivePlayer(countKeyBoard);
 			break;
 		case SpecialKey:
-			handleSpecialKey(activePlayer, sumOfMoves);
+			this->handleSpecialKey(activePlayer, sumOfMoves);
 			break;
 		default:
-			exit = handleKeyBoardKey(c);
+			exit = this->handleKeyBoardKey(c);
 			break;
 		}
 	}
@@ -94,17 +94,17 @@ void Controller::handleSpecialKey(int activePlayer, int& sumOfMoves)
 	{
 	case KB_Up:
 		// Arrow Up pressed
-		movePlayerInBoard(activePlayer, sumOfMoves, Up, 0);
+		this->movePlayerInBoard(activePlayer, sumOfMoves, Up, 0);
 		break;
 
 	case KB_Down:
 		// Arrow Down pressed
-		movePlayerInBoard(activePlayer, sumOfMoves, Down, 0);
+		this->movePlayerInBoard(activePlayer, sumOfMoves, Down, 0);
 		break;
 
 	case KB_Left:
 		// Arrow Left pressed
-		movePlayerInBoard(activePlayer, sumOfMoves, 0, Left);
+		this->movePlayerInBoard(activePlayer, sumOfMoves, 0, Left);
 		break;
 
 	case KB_Right:
@@ -159,6 +159,16 @@ void Controller::movePlayerInBoard(int player, int& sumOfMoves, int row,
 	}
 	// at the end of every movement we'll print the board 
 	std::system("cls");
-	m_board.printMessages(player, sumOfMoves, /*m_Thief.checkIfTheThiefHasAkey()*/ true);
+	m_board.printMessages(player, sumOfMoves, m_Thief.checkIfTheThiefHasAkey());
 	m_board.printBoard();
+}
+// restarting the members to their intialzation in order to start a new level
+//_________________________________________
+void Controller::restartMembersToNewLevel()
+{
+	m_board.resetBoard();
+	m_King.restartMembersToNextLevel();
+	m_Mage.restartMembersToNextLevel();
+	m_Thief.restartMembersToNextLevel();
+	m_Warrior.restartMembersToNextLevel();
 }

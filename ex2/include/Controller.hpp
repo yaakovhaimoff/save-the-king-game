@@ -27,6 +27,7 @@ public:
 	bool handleKeyBoardKey(int);
 	void handleSpecialKey(int, int&);
 	void movePlayerInBoard(int, int&, int, int);
+	void restartMembersToNewLevel();
 
 private:
 	Board m_board;
