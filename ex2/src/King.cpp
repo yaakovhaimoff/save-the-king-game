@@ -99,3 +99,9 @@ void King::restartMembersToNextLevel()
 	this->m_needToSaveKey = false;
 	this->m_kingOnThrone = false;
 }
+// returning is the king on the throne
+//_________________________
+bool King::isKingOnThrone()
+{
+	return this->m_kingOnThrone;
+}

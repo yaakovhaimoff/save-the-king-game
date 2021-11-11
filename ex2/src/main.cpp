@@ -8,8 +8,9 @@
 
 int main()
 {
+    bool exitEscape = false;
     Controller player;
-    player.runGame();
+    player.runGame(exitEscape);
 
 return 0;
 }

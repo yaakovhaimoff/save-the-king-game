@@ -9,19 +9,23 @@ Controller::Controller()
 // the level ends at enter, and the game ends at end of file,
 // unless the player will choose to end it when press 'escape'
 //________________________
-void Controller::runGame()
+void Controller::runGame(bool exitEscape)
 {
-	while (!this->m_board.checkEndOfFile())
+	while (!this->m_board.checkEndOfFile() && !exitEscape)
 	{
 		this->m_board.getLinesFromFiles();
 		this->findPlayersLocation();
 		this->m_board.createTeleportArr();
 		this->m_board.printMessages(KING, 0, false);
 		this->m_board.printBoard();
-		this->playLevel();
+		this->playLevel(exitEscape);
 		this->restartMembersToNewLevel();
 		this->m_board.printEndOfLevelMessage();
+	}
+	if (!exitEscape)
+	{
 		std::system("cls");
+		std::cout << "Game Over! \n" << std::endl;
 	}
 }
 // getting the players location on the board
@@ -36,12 +40,12 @@ void Controller::findPlayersLocation()
 // the level will ennd when the King gets to the '@'
 // unless the player will press 'escape'
 //__________________________
-void Controller::playLevel()
+void Controller::playLevel(bool& exitEscape)
 {
 	int countKeyBoard = 0,
 		activePlayer = 0,
 		sumOfMoves = 0;;
-	for (auto exit = false; !exit;)
+	while (!this->m_King.isKingOnThrone())
 	{
 		auto c = _getch();
 		switch (c)
@@ -54,9 +58,12 @@ void Controller::playLevel()
 			this->handleSpecialKey(activePlayer, sumOfMoves);
 			break;
 		default:
-			exit = this->handleKeyBoardKey(c);
+			if (this->handleKeyBoardKey(c))
+				exitEscape = true;
 			break;
 		}
+		if (exitEscape)
+			break;
 	}
 }
 // every time the player presses 'p' / 'P' he can switch a 
@@ -120,14 +127,11 @@ bool Controller::handleKeyBoardKey(int c)
 	switch (c)
 	{
 	case KB_Escape:
-		std::cout << "Escape pressed. Exiting...\n";
-		// exit game message
 		return true;
 	default:
 		std::cout << "Unknown regular key pressed (code = " << c << ")\n";
 		break;
 	}
-
 	return false;
 }
 // getting the next step, and sending every playerKey to her class
@@ -145,7 +149,7 @@ void Controller::movePlayerInBoard(int player, int& sumOfMoves, int row,
 		this->m_King.kingNextStep(this->m_board, nextStep, player, sumOfMoves, row, col);
 		break;
 	case MAGE:
-		nextStep = this->m_board.getBoardItem(this->m_Mage.getMageLocation().getRow() + this->row, m_Mage.getMageLocation().getCol() + col);
+		nextStep = this->m_board.getBoardItem(this->m_Mage.getMageLocation().getRow() + row, this->m_Mage.getMageLocation().getCol() + col);
 		this->m_Mage.mageNextStep(this->m_board, nextStep, player, sumOfMoves, row, col);
 		break;
 	case WARRIOR:

@@ -19,6 +19,7 @@ public:
     void kingNextStep(Board &, const int, const int, int&, int, int);
     void saveKingStep(Board &, const int, const int, const int, const int);
     void restartMembersToNextLevel();
+    bool isKingOnThrone();
 
 private:
     Location m_KingLocation;

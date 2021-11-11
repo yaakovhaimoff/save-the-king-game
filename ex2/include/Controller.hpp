@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <cstring>
+#pragma once
 #include <conio.h>
 #include <Windows.h>
 
@@ -21,8 +22,8 @@ class Controller
 public:
 	Controller();
 	void findPlayersLocation();
-	void playLevel();
-	void runGame();
+	void playLevel(bool&);
+	void runGame(bool);
 	int decideActivePlayer(int&);
 	bool handleKeyBoardKey(int);
 	void handleSpecialKey(int, int&);

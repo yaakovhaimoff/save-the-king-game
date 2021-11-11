@@ -47,8 +47,11 @@ void Board::printMessages(int activePlayer, int moves, bool hasKey)
 //__________________________________
 void Board::printEndOfLevelMessage()
 {
-	cout << "You have finished thw lavel succesfully!\n";
-	cout << "Now to the next level->\n";
+	std::system("cls");
+	cout << "\nYou have finished the level succesfully!\n\n";
+	cout << "press Enter to play the next level: \n\n";
+	char c =_getch();
+	std::system("cls");
 }
 // getting the location of the player at the beginging of each level
 //____________________________________________________
@@ -92,6 +95,7 @@ bool Board::checkEndOfFile()
 {
 	return m_boardSrcFiles.eof();
 }
+// creating an array of teleport location
 //_____________________________
 void Board::createTeleportArr()
 {
@@ -99,6 +103,7 @@ void Board::createTeleportArr()
 	m_teleportLocations = new Location[size];
 	locateTeleportsLocation();
 }
+// returning the amount of teleports in the board
 //________________________________
 int Board::findAmountOfTeleports()
 {
@@ -115,6 +120,7 @@ int Board::findAmountOfTeleports()
 	}
 	return m_amountTeleport = numOfTeleports;
 }
+// setting the teleports locations in the teleport array
 //___________________________________
 void Board::locateTeleportsLocation()
 {
@@ -131,6 +137,14 @@ void Board::locateTeleportsLocation()
 		}
 	}
 }
+// if the player has got to a teleport in the game he'll
+// move to the teleport that is connected to his.
+// the way we do it is we find his teleports, 
+// then we'll assign him to the next teleport depending on the 
+// index of his teleport. if it's odd so he'll go to the teleport
+// that is before him in the teleport array,
+// and if his telelport index is pair he'll go to the teleport
+// in the index plus one to his in the teleport array.
 //_____________________________________________________
 Location Board::nextTeleportLocation(Location boardTel)
 {
@@ -143,8 +157,8 @@ Location Board::nextTeleportLocation(Location boardTel)
 		}
 	}
 	return col % 2 == 0 ? m_teleportLocations[col + 1] : m_teleportLocations[col - 1];
-
 }
+// checking if the teleport location is equal
 //__________________________________________________________________
 bool Board::teleportLocationEqual(Location boardTel, Location arrTel)
 {
