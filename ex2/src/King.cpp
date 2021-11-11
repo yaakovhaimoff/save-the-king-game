@@ -3,18 +3,19 @@
 // initializing the King member to default data
 //________________________________
 King::King() : m_KingLocation(0, 0),
-			   m_needToSaveKey(false) {}
+			   m_needToSaveKey(false),
+			   m_kingOnThrone(false) {}
 // setting the King loaction from the board
 //______________________________________________
 void King::setLocation(const Location &location)
 {
-	m_KingLocation = location;
+	this->m_KingLocation = location;
 }
 // sending King location
 //______________________________
 Location King::getKingLocation()
 {
-	return m_KingLocation;
+	return this->m_KingLocation;
 }
 // checking what is the next step,
 // and returמing its case to kingNextStep to handle it
@@ -40,7 +41,7 @@ int King::isKingMoveValid(const int nextStep)
 // the keys will be sent to saveKingStep.
 //______________________________________________________________
 void King::kingNextStep(Board &board, const int nextStep, const int player,
-						int &sumOfMoves, int row,  int col)
+						int &sumOfMoves, int row, int col)
 {
 	int decideMove = this->isKingMoveValid(nextStep);
 	switch (decideMove)
@@ -52,17 +53,17 @@ void King::kingNextStep(Board &board, const int nextStep, const int player,
 		// in the next step after this one
 	case StepAndSaveKey:
 		this->saveKingStep(board, row, col, player, Space);
-		m_needToSaveKey = true;
+		this->m_needToSaveKey = true;
 		sumOfMoves++;
 		break;
 	case ContinueAndDelete:
 		sumOfMoves++;
 		// checking if the last move was GateKey
 		// if it was a key will be send to be printed on the board
-		if (m_needToSaveKey)
+		if (this->m_needToSaveKey)
 		{
 			this->saveKingStep(board, row, col, player, GateKey);
-			m_needToSaveKey = false;
+			this->m_needToSaveKey = false;
 			break;
 		}
 		this->saveKingStep(board, row, col, player, Space);
@@ -71,22 +72,21 @@ void King::kingNextStep(Board &board, const int nextStep, const int player,
 		// to its coordinates
 	case JumpToTheNextTeleport:
 		Location nextTeleport =
-			board.nextTeleportLocation(Location(m_KingLocation.getRow() + row, m_KingLocation.getCol() + col));
-		row = (nextTeleport.getRow() - m_KingLocation.getRow());
-		col = (nextTeleport.getCol() - m_KingLocation.getCol());
+			board.nextTeleportLocation(Location(this->m_KingLocation.getRow() + row, this->m_KingLocation.getCol() + col));
+		row = (nextTeleport.getRow() - this->m_KingLocation.getRow());
+		col = (nextTeleport.getCol() - this->m_KingLocation.getCol());
 		saveKingStep(board, row, col + 1, player, Space);
 		break;
 		// if the player got to '@' the level ends
 	case GameOver:
 		this->saveKingStep(board, row, col, player, Space);
-		std::system("cls");
-		board.printBoard();
+		this->m_kingOnThrone = true;
 		break;
 	}
 }
 // saving the move new data in the board and in the king member location
 //_________________________________________________________________________
-void King::saveKingStep(Board& board, const int row, const int col, const int player, const int key)
+void King::saveKingStep(Board &board, const int row, const int col, const int player, const int key)
 {
 	board.changeBoardItem(this->getKingLocation().getRow() + row, this->getKingLocation().getCol() + col, player);
 	board.changeBoardItem(this->getKingLocation().getRow(), this->getKingLocation().getCol(), key);
@@ -96,5 +96,6 @@ void King::saveKingStep(Board& board, const int row, const int col, const int pl
 //____________________________________
 void King::restartMembersToNextLevel()
 {
-	m_needToSaveKey = false;
+	this->m_needToSaveKey = false;
+	this->m_kingOnThrone = false;
 }

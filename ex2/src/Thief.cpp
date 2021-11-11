@@ -17,13 +17,13 @@ void Thief::setLocation(const Location& location)
 //________________________________
 Location Thief::getThiefLocation()
 {
-	return m_ThiefLocation;
+	return this->m_ThiefLocation;
 }
 // returning if thief has a key
 //__________________________________
 bool Thief::checkIfTheThiefHasAkey()
 {
-	return m_amountOfKeys > 0;
+	return this->m_amountOfKeys > 0;
 }
 // checking what is the next step,
 // and returמing its case to thiefNextStep to handle it
@@ -60,19 +60,19 @@ void Thief::thiefNextStep(Board& board, const int nextStep, const int player,
 		// if it was a key will be send to be printed on the board
 	case StepAndSaveKey:
 		this->saveThiefStep(board, row, col, player, Space);
-		m_needToSaveKey = true;
+		this->m_needToSaveKey = true;
 		if (nextStep == GateKey)
-			m_amountOfKeys++;
+			this->m_amountOfKeys++;
 		sumOfMoves++;
 		break;
 	case ContinueAndDelete:
 		// if the thief doesn't have key the function will skip this if
 		// and will eat the key, but if elready posses a key,
 		// the thief won't eat more keys until he uses his
-		if (m_needToSaveKey && m_amountOfKeys != 1)
+		if (this->m_needToSaveKey && this->m_amountOfKeys != 1)
 		{
 			this->saveThiefStep(board, row, col, player, GateKey);
-			m_needToSaveKey = false;
+			this->m_needToSaveKey = false;
 			sumOfMoves++;
 			break;
 		}
@@ -84,16 +84,16 @@ void Thief::thiefNextStep(Board& board, const int nextStep, const int player,
 		if (m_amountOfKeys > 0)
 		{
 			this->saveThiefStep(board, row, col, player, Space);
-			m_amountOfKeys = 0;
-			m_needToSaveKey = false;
+			this->m_amountOfKeys = 0;
+			this->m_needToSaveKey = false;
 		}
 		break;
 		// if the case is Teleport will get the next teleport location and send the king
 		// to its coordinates
 	case JumpToTheNextTeleport:
-		Location nextTel = board.nextTeleportLocation(Location(m_ThiefLocation.getRow() + row, m_ThiefLocation.getCol() + col));
-		row = (nextTel.getRow() - m_ThiefLocation.getRow());
-		col = (nextTel.getCol() - m_ThiefLocation.getCol());
+		Location nextTel = board.nextTeleportLocation(Location(this->m_ThiefLocation.getRow() + row, this->m_ThiefLocation.getCol() + col));
+		row = (nextTel.getRow() - this->m_ThiefLocation.getRow());
+		col = (nextTel.getCol() - this->m_ThiefLocation.getCol());
 		this->saveThiefStep(board, row, col + 1, player, Space);
 		break;
 	}
@@ -110,6 +110,6 @@ void Thief::saveThiefStep(Board& board, const int row, const int col, const int 
 //____________________________________
 void Thief::restartMembersToNextLevel()
 {
-	m_needToSaveKey = false;
-	m_amountOfKeys = 0;
+	this->m_needToSaveKey = false;
+	this->m_amountOfKeys = 0;
 }

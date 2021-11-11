@@ -8,13 +8,13 @@ m_teleport(false) {}
 //______________________________________________
 void Mage::setLocation(const Location& location)
 {
-	m_MageLocation = location;
+	this->m_MageLocation = location;
 }
 // sending Mage location
 //_______________________________________
 Location Mage::getMageLocation()
 {
-	return m_MageLocation;
+	return this->m_MageLocation;
 }
 // checking what is the next step,
 // and returמing its case to mageNextStep to handle it
@@ -49,7 +49,7 @@ void Mage::mageNextStep(Board& board, const int nextStep, const int player,
 		// if it was a key will be send to be printed on the board
 	case StepAndSaveKey:
 		this->saveMageStep(board, row, col, player, Space);
-		nextStep == GateKey ? m_needToSaveKey = true : m_teleport = true;
+		nextStep == GateKey ? this->m_needToSaveKey = true : this->m_teleport = true;
 		sumOfMoves++;
 		break;
 	case ContinueAndDelete:
@@ -58,9 +58,9 @@ void Mage::mageNextStep(Board& board, const int nextStep, const int player,
 		// if it was one if them their key will be send to be printed on the board
 		if (m_needToSaveKey || m_teleport)
 		{
-			this->saveMageStep(board, row, col, player, m_needToSaveKey ? GateKey : Teleport);
-			m_needToSaveKey = false;
-			m_teleport = false;
+			this->saveMageStep(board, row, col, player, this->m_needToSaveKey ? GateKey : Teleport);
+			this->m_needToSaveKey = false;
+			this->m_teleport = false;
 			break;
 		}
 		this->saveMageStep(board, row, col, player, Space);
@@ -79,6 +79,6 @@ void Mage::saveMageStep(Board& board, const int row, const int col, const int pl
 //____________________________________
 void Mage::restartMembersToNextLevel()
 {
-	m_needToSaveKey = false;
-	m_teleport = false;
+	this->m_needToSaveKey = false;
+	this->m_teleport = false;
 }

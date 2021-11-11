@@ -9,13 +9,13 @@ Warrior::Warrior() : m_WarriorLocation(0, 0), m_needToSaveKey(false)
 //__________________________________________________
 void Warrior::setLocation(const Location &location)
 {
-	m_WarriorLocation = location;
+	this->m_WarriorLocation = location;
 }
 // sending Warrior location
 //____________________________________
 Location Warrior::getWarriorLocation()
 {
-	return m_WarriorLocation;
+	return this->m_WarriorLocation;
 }
 // checking what is the next step,
 // and returמing its case to warriorNextStep to handle it
@@ -62,7 +62,7 @@ void Warrior::warriorNextStep(Board &board, const int nextStep, const int player
 		if (m_needToSaveKey)
 		{
 			this->saveWarriorStep(board, row, col, player, GateKey);
-			m_needToSaveKey = false;
+			this->m_needToSaveKey = false;
 			break;
 		}
 		this->saveWarriorStep(board, row, col, player, Space);
@@ -70,9 +70,9 @@ void Warrior::warriorNextStep(Board &board, const int nextStep, const int player
 		// if the case is Teleport will get the next teleport location and send the king
 		// to its coordinates
 	case JumpToTheNextTeleport:
-		Location nextTel = board.nextTeleportLocation(Location(m_WarriorLocation.getRow() + row, m_WarriorLocation.getCol() + col));
-		row = (nextTel.getRow() - m_WarriorLocation.getRow());
-		col = (nextTel.getCol() - m_WarriorLocation.getCol());
+		Location nextTel = board.nextTeleportLocation(Location(this->m_WarriorLocation.getRow() + row, this->m_WarriorLocation.getCol() + col));
+		row = (nextTel.getRow() - this->m_WarriorLocation.getRow());
+		col = (nextTel.getCol() - this->m_WarriorLocation.getCol());
 		this->saveWarriorStep(board, row, col + 1, player, Space);
 		break;
 	}
@@ -89,6 +89,6 @@ void Warrior::saveWarriorStep(Board &board, const int row, const int col, const 
 //____________________________________
 void Warrior::restartMembersToNextLevel()
 {
-	m_needToSaveKey = false;
+	this->m_needToSaveKey = false;
 }
 

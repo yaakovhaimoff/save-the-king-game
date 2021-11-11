@@ -11,16 +11,16 @@ Controller::Controller()
 //________________________
 void Controller::runGame()
 {
-	while (!m_board.checkEndOfFile())
+	while (!this->m_board.checkEndOfFile())
 	{
-		m_board.getLinesFromFiles();
+		this->m_board.getLinesFromFiles();
 		this->findPlayersLocation();
-		m_board.createTeleportArr();
-		m_board.printMessages(KING, 0, false);
-		m_board.printBoard();
+		this->m_board.createTeleportArr();
+		this->m_board.printMessages(KING, 0, false);
+		this->m_board.printBoard();
 		this->playLevel();
 		this->restartMembersToNewLevel();
-		m_board.printEndOfLevelMessage();
+		this->m_board.printEndOfLevelMessage();
 		std::system("cls");
 	}
 }
@@ -28,10 +28,10 @@ void Controller::runGame()
 //____________________________________
 void Controller::findPlayersLocation()
 {
-	m_King.setLocation(Location(m_board.getPlayerLoctionInBoard(KING)));
-	m_Mage.setLocation(Location(m_board.getPlayerLoctionInBoard(MAGE)));
-	m_Warrior.setLocation(Location(m_board.getPlayerLoctionInBoard(WARRIOR)));
-	m_Thief.setLocation(Location(m_board.getPlayerLoctionInBoard(THIEF)));
+	this->m_King.setLocation(Location(m_board.getPlayerLoctionInBoard(KING)));
+	this->m_Mage.setLocation(Location(m_board.getPlayerLoctionInBoard(MAGE)));
+	this->m_Warrior.setLocation(Location(m_board.getPlayerLoctionInBoard(WARRIOR)));
+	this->m_Thief.setLocation(Location(m_board.getPlayerLoctionInBoard(THIEF)));
 }
 // the level will ennd when the King gets to the '@'
 // unless the player will press 'escape'
@@ -109,7 +109,7 @@ void Controller::handleSpecialKey(int activePlayer, int& sumOfMoves)
 
 	case KB_Right:
 		// Arrow Right pressed
-		movePlayerInBoard(activePlayer, sumOfMoves, 0, Right);
+		this->movePlayerInBoard(activePlayer, sumOfMoves, 0, Right);
 		break;
 	}
 }
@@ -141,34 +141,34 @@ void Controller::movePlayerInBoard(int player, int& sumOfMoves, int row,
 	switch (player)
 	{
 	case KING:
-		nextStep = m_board.getBoardItem(m_King.getKingLocation().getRow() + row, m_King.getKingLocation().getCol() + col);
-		m_King.kingNextStep(m_board, nextStep, player, sumOfMoves, row, col);
+		nextStep = this->m_board.getBoardItem(this->m_King.getKingLocation().getRow() + row, this->m_King.getKingLocation().getCol() + col);
+		this->m_King.kingNextStep(this->m_board, nextStep, player, sumOfMoves, row, col);
 		break;
 	case MAGE:
-		nextStep = m_board.getBoardItem(m_Mage.getMageLocation().getRow() + row, m_Mage.getMageLocation().getCol() + col);
-		m_Mage.mageNextStep(m_board, nextStep, player, sumOfMoves, row, col);
+		nextStep = this->m_board.getBoardItem(this->m_Mage.getMageLocation().getRow() + this->row, m_Mage.getMageLocation().getCol() + col);
+		this->m_Mage.mageNextStep(this->m_board, nextStep, player, sumOfMoves, row, col);
 		break;
 	case WARRIOR:
-		nextStep = m_board.getBoardItem(m_Warrior.getWarriorLocation().getRow() + row, m_Warrior.getWarriorLocation().getCol() + col);
-		m_Warrior.warriorNextStep(m_board, nextStep, player, sumOfMoves, row, col);
+		nextStep = this->m_board.getBoardItem(this->m_Warrior.getWarriorLocation().getRow() + row, this->m_Warrior.getWarriorLocation().getCol() + col);
+		this->m_Warrior.warriorNextStep(this->m_board, nextStep, player, sumOfMoves, row, col);
 		break;
 	case THIEF:
-		nextStep = m_board.getBoardItem(m_Thief.getThiefLocation().getRow() + row, m_Thief.getThiefLocation().getCol() + col);
-		m_Thief.thiefNextStep(m_board, nextStep, player, sumOfMoves, row, col);
+		nextStep = this->m_board.getBoardItem(this->m_Thief.getThiefLocation().getRow() + row, this->m_Thief.getThiefLocation().getCol() + col);
+		this->m_Thief.thiefNextStep(this->m_board, nextStep, player, sumOfMoves, row, col);
 		break;
 	}
 	// at the end of every movement we'll print the board 
 	std::system("cls");
-	m_board.printMessages(player, sumOfMoves, m_Thief.checkIfTheThiefHasAkey());
-	m_board.printBoard();
+	this->m_board.printMessages(player, sumOfMoves, this->m_Thief.checkIfTheThiefHasAkey());
+	this->m_board.printBoard();
 }
 // restarting the members to their intialzation in order to start a new level
 //_________________________________________
 void Controller::restartMembersToNewLevel()
 {
-	m_board.resetBoard();
-	m_King.restartMembersToNextLevel();
-	m_Mage.restartMembersToNextLevel();
-	m_Thief.restartMembersToNextLevel();
-	m_Warrior.restartMembersToNextLevel();
+	this->m_board.resetBoard();
+	this->m_King.restartMembersToNextLevel();
+	this->m_Mage.restartMembersToNextLevel();
+	this->m_Thief.restartMembersToNextLevel();
+	this->m_Warrior.restartMembersToNextLevel();
 }

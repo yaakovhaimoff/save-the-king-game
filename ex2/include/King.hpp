@@ -23,4 +23,5 @@ public:
 private:
     Location m_KingLocation;
     bool m_needToSaveKey;
+    bool m_kingOnThrone;
 };
