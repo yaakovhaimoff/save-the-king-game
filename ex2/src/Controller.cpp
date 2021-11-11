@@ -1,8 +1,13 @@
 #include "Controller.hpp"
 
+// the intialization of Controller members
+// are done at their classes
 //______________________
 Controller::Controller()
 {}
+// runing the game
+// the level ends at enter, and the game ends at end of file,
+// unless the player will choose to end it when press 'escape'
 //________________________
 void Controller::runGame()
 {
@@ -11,13 +16,14 @@ void Controller::runGame()
 		m_board.getLinesFromFiles();
 		findPlayersLocation();
 		m_board.createTeleportArr();
-		m_board.printMessages('K', 0, false);
+		m_board.printMessages(KING, 0, false);
 		m_board.printBoard();
 		playLevel();
 		std::system("cls");
 		m_board.clearBoard();
 	}
 }
+// getting the players location on the board
 //____________________________________
 void Controller::findPlayersLocation()
 {
@@ -26,6 +32,8 @@ void Controller::findPlayersLocation()
 	m_Warrior.setLocation(Location(m_board.getPlayerLoctionInBoard(WARRIOR)));
 	m_Thief.setLocation(Location(m_board.getPlayerLoctionInBoard(THIEF)));
 }
+// the level will ennd when the King gets to the '@'
+// unless the player will press 'escape'
 //__________________________
 void Controller::playLevel()
 {
@@ -50,6 +58,10 @@ void Controller::playLevel()
 		}
 	}
 }
+// every time the player presses 'p' / 'P' he can switch a 
+// keyPlayer to move on the board. this switching will go in a circle.
+// the method is deviding the amount of keyPlayers into Equilibrium classes.
+// every class repesent the remaining division by the amount of keyBoards we have in the game
 //__________________________________________________
 int Controller::decideActivePlayer(int& countKeyBoard)
 {
@@ -72,6 +84,7 @@ int Controller::decideActivePlayer(int& countKeyBoard)
 	}
 	return 1;
 }
+// sending the player to move his keyBoard by the arrow he pressed
 //_________________________________________________________________
 void Controller::handleSpecialKey(int activePlayer, int& sumOfMoves)
 {
@@ -100,6 +113,7 @@ void Controller::handleSpecialKey(int activePlayer, int& sumOfMoves)
 		break;
 	}
 }
+// if the player chooses to end the game by pressing escape
 //_______________________________________
 bool Controller::handleKeyBoardKey(int c)
 {
@@ -116,6 +130,9 @@ bool Controller::handleKeyBoardKey(int c)
 
 	return false;
 }
+// getting the next step, and sending every playerKey to her class
+//  to handle the move and check if this move is valid, 
+// and to decide what to do with it.
 //______________________________________________________________________
 void Controller::movePlayerInBoard(int player, int& sumOfMoves, int row,
 	int col, bool thiefHasKey)
@@ -140,6 +157,7 @@ void Controller::movePlayerInBoard(int player, int& sumOfMoves, int row,
 		m_Thief.thiefNextStep(m_board, nextStep, player, sumOfMoves, row, col);
 		break;
 	}
+	// at the end of every movement we'll print the board 
 	std::system("cls");
 	m_board.printMessages(player, sumOfMoves, thiefHasKey);
 	m_board.printBoard();

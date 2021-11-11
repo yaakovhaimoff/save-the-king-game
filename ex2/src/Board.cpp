@@ -7,10 +7,14 @@ using std::ifstream;
 using std::string;
 using std::vector;
 
+// opening the board files with all the levels.
+// intializing board members 
 //____________
 Board::Board()
 	: m_boardSrcFiles("Levels.txt"),
 	m_amountTeleport(0), m_teleportLocations(nullptr){}
+// reading the level until the text files hits enter,
+// the level ends at enter, and the game ends at end of file.
 // _____________________________
 void Board::getLinesFromFiles()
 {
@@ -20,6 +24,7 @@ void Board::getLinesFromFiles()
 		m_textBoard.push_back(line);
 	}
 }
+// printing the board line by line
 //______________________
 void Board::printBoard()
 {
@@ -28,6 +33,7 @@ void Board::printBoard()
 		cout << this->m_textBoard[row] << endl;
 	}
 }
+// printing the messeges who will be displayed while playing the games
 //_________________________________________________________________
 void Board::printMessages(int activePlayer, int moves, bool hasKey)
 {
@@ -37,6 +43,7 @@ void Board::printMessages(int activePlayer, int moves, bool hasKey)
 	cout << "Does the thief have a key: ";
 	hasKey ? cout << "true\n" : cout << "false\n";
 }
+// getting the location of the player at the beginging of each level
 //____________________________________________________
 Location Board::getPlayerLoctionInBoard(int playerKey)
 {
@@ -50,21 +57,28 @@ Location Board::getPlayerLoctionInBoard(int playerKey)
 	}
 	return Location(0, 0);
 }
+// changing a board cell when moving a player on the board
 //_______________________________________________________
 void Board::changeBoardItem(int row, int col, int player)
 {
 	this->m_textBoard[row][col] = player;
 }
+// getting a board character to ccompare or check the 
+// to check the next step of the player
 //________________________________________
 int Board::getBoardItem(int row, int col)
 {
 	return m_textBoard[row][col];
 }
+// clearing the board vector, after every level
 //______________________
 void Board::clearBoard()
 {
 	this->m_textBoard.clear();
 }
+// returning if the file has ended
+// the games will run until the end of file
+// unless the player will choose to quit
 //__________________________
 bool Board::checkEndOfFile()
 {
@@ -93,6 +107,7 @@ int Board::findAmountOfTeleports()
 	}
 	return m_amountTeleport = numOfTeleports;
 }
+// ___________________________________
 void Board::locateTeleportsLocation()
 {
 	int indexInLocationArr = 0;
@@ -108,6 +123,7 @@ void Board::locateTeleportsLocation()
 		}
 	}
 }
+// _____________________________________________________
 Location Board::nextTeleportLocation(Location boardTel)
 {
 	int col;
@@ -121,6 +137,7 @@ Location Board::nextTeleportLocation(Location boardTel)
 	return col % 2 == 0 ? m_teleportLocations[col + 1] : m_teleportLocations[col - 1];
 
 }
+// __________________________________________________________________
 bool Board::teleportLocationEqual(Location boardTel, Location arrTel)
 {
 	return boardTel.getCol() == arrTel.getCol() && boardTel.getRow() == arrTel.getRow();

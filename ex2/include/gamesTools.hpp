@@ -1,7 +1,9 @@
 #pragma once
 
+// amount of player tools in the game
 const int numOfPlayers = 4;
 
+// what the tiles in the game can posses
 enum gameTools
 {
 	GateKey = 70,
@@ -13,13 +15,13 @@ enum gameTools
 	Space = 32,
 	Wall = 61
 };
-
+// the moves which can happen in the game
 enum gameMoves
 {
-	DontDoNothing = 0,
+	DoNothing = 0,
 	ContinueAndDelete = 1,
 	StepAndSaveKey = 2,
-	JumpToNext = 3,
+	JumpToTheNextTeleport = 3,
 	ThiefHasKey = 4,
 	GameOver = 5
 };
@@ -31,7 +33,7 @@ enum steps
 	Left = -1,
 	Right = 1
 };
-
+// the player tools in the games
 enum playersKeys
 {
 	KING = 75,      // 'K'
@@ -39,15 +41,15 @@ enum playersKeys
 	WARRIOR = 87, // 'W'
 	THIEF = 84    // 'T'
 };
-
+// the player key, and the escape buuton
 enum Keys
 {
-	Playerp = 112,
-	PlayerP = 80,
+	Playerp = 112,	 // 'p'
+	PlayerP = 80,	 // 'P'
 	KB_Escape = 27,
 	SpecialKey = 224,
 };
-
+// arrows in the keyboard
 enum SpecialKeys
 {
 	KB_Up = 72,

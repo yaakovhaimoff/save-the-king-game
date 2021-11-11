@@ -17,7 +17,7 @@ public:
     int isThiefMoveValid(int);
     void thiefNextStep(Board&, int, int, int&, int, int);
     void saveThiefStep(Board&, int, int, int, int);
-    bool getThiegHasKey();
+    bool checkingIfTheThiefHasAkey();
 
 private:
     Location m_ThiefLocation;
