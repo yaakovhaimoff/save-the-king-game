@@ -21,6 +21,7 @@ void Controller::runGame()
 		playLevel();
 		std::system("cls");
 		m_board.clearBoard();
+		m_board.printEndOfLevelMessage();
 	}
 }
 // getting the players location on the board
@@ -88,28 +89,27 @@ int Controller::decideActivePlayer(int& countKeyBoard)
 //_________________________________________________________________
 void Controller::handleSpecialKey(int activePlayer, int& sumOfMoves)
 {
-	static bool thiefHasKey = false;
 	auto c = _getch();
 	switch (c)
 	{
 	case KB_Up:
 		// Arrow Up pressed
-		movePlayerInBoard(activePlayer, sumOfMoves, Up, 0, thiefHasKey);
+		movePlayerInBoard(activePlayer, sumOfMoves, Up, 0);
 		break;
 
 	case KB_Down:
 		// Arrow Down pressed
-		movePlayerInBoard(activePlayer, sumOfMoves, Down, 0, thiefHasKey);
+		movePlayerInBoard(activePlayer, sumOfMoves, Down, 0);
 		break;
 
 	case KB_Left:
 		// Arrow Left pressed
-		movePlayerInBoard(activePlayer, sumOfMoves, 0, Left, thiefHasKey);
+		movePlayerInBoard(activePlayer, sumOfMoves, 0, Left);
 		break;
 
 	case KB_Right:
 		// Arrow Right pressed
-		movePlayerInBoard(activePlayer, sumOfMoves, 0, Right, thiefHasKey);
+		movePlayerInBoard(activePlayer, sumOfMoves, 0, Right);
 		break;
 	}
 }
@@ -135,7 +135,7 @@ bool Controller::handleKeyBoardKey(int c)
 // and to decide what to do with it.
 //______________________________________________________________________
 void Controller::movePlayerInBoard(int player, int& sumOfMoves, int row,
-	int col, bool thiefHasKey)
+	int col)
 {
 	int nextStep;
 	switch (player)
@@ -159,6 +159,6 @@ void Controller::movePlayerInBoard(int player, int& sumOfMoves, int row,
 	}
 	// at the end of every movement we'll print the board 
 	std::system("cls");
-	m_board.printMessages(player, sumOfMoves, thiefHasKey);
+	m_board.printMessages(player, sumOfMoves, /*m_Thief.checkIfTheThiefHasAkey()*/ true);
 	m_board.printBoard();
 }

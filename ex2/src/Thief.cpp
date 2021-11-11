@@ -21,9 +21,9 @@ Location Thief::getThiefLocation()
 }
 //
 //__________________________
-bool Thief::checkingIfTheThiefHasAkey()
+bool Thief::checkIfTheThiefHasAkey()
 {
-	return m_amountOfKeys > 0;
+	return m_amountOfKeys > 0 ? true : false;
 }
 // checking what is the next step,
 // and returמing its case to thiefNextStep to handle it
@@ -87,6 +87,7 @@ void Thief::thiefNextStep(Board &board, int nextStep, int player,
 			m_amountOfKeys = 0;
 			m_needToSaveKey = false;
 		}
+		break;
 		// if the case is Teleport will get the next teleport location and send the king
 		// to its coordinates
 	case JumpToTheNextTeleport:
@@ -94,7 +95,6 @@ void Thief::thiefNextStep(Board &board, int nextStep, int player,
 		row = (nextTel.getRow() - m_ThiefLocation.getRow());
 		col = (nextTel.getCol() - m_ThiefLocation.getCol());
 		saveThiefStep(board, row, col + 1, player, Space);
-
 		break;
 	}
 }

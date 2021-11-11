@@ -28,6 +28,7 @@ public:
     void locateTeleportsLocation();
     Location nextTeleportLocation(Location);
     bool teleportLocationEqual(Location, Location);
+    void printEndOfLevelMessage();
 
 private:
     std::ifstream m_boardSrcFiles;

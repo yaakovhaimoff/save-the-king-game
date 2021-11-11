@@ -26,7 +26,7 @@ public:
 	int decideActivePlayer(int&);
 	bool handleKeyBoardKey(int);
 	void handleSpecialKey(int, int&);
-	void movePlayerInBoard(int, int&, int, int, bool);
+	void movePlayerInBoard(int, int&, int, int);
 
 private:
 	Board m_board;

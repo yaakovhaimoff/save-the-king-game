@@ -33,7 +33,7 @@ void Board::printBoard()
 		cout << this->m_textBoard[row] << endl;
 	}
 }
-// printing the messeges who will be displayed while playing the games
+// printing the messages who will be displayed while playing the games
 //_________________________________________________________________
 void Board::printMessages(int activePlayer, int moves, bool hasKey)
 {
@@ -42,6 +42,13 @@ void Board::printMessages(int activePlayer, int moves, bool hasKey)
 	cout << "The sum of steps is: " << moves << endl;
 	cout << "Does the thief have a key: ";
 	hasKey ? cout << "true\n" : cout << "false\n";
+}
+// messages which will printed at the end of every level 
+//__________________________________
+void Board::printEndOfLevelMessage()
+{
+	cout << "You have finished thw lavel succesfully!\n";
+	cout << "Now to the next level->\n";
 }
 // getting the location of the player at the beginging of each level
 //____________________________________________________
@@ -107,7 +114,7 @@ int Board::findAmountOfTeleports()
 	}
 	return m_amountTeleport = numOfTeleports;
 }
-// ___________________________________
+//___________________________________
 void Board::locateTeleportsLocation()
 {
 	int indexInLocationArr = 0;
@@ -123,7 +130,7 @@ void Board::locateTeleportsLocation()
 		}
 	}
 }
-// _____________________________________________________
+//_____________________________________________________
 Location Board::nextTeleportLocation(Location boardTel)
 {
 	int col;
@@ -137,7 +144,7 @@ Location Board::nextTeleportLocation(Location boardTel)
 	return col % 2 == 0 ? m_teleportLocations[col + 1] : m_teleportLocations[col - 1];
 
 }
-// __________________________________________________________________
+//__________________________________________________________________
 bool Board::teleportLocationEqual(Location boardTel, Location arrTel)
 {
 	return boardTel.getCol() == arrTel.getCol() && boardTel.getRow() == arrTel.getRow();
