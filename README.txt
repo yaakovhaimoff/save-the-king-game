@@ -43,6 +43,12 @@ src - where all the cpp are stalled, the class implementation are and the main.
 rcs - where the board.txt is.
 README.txt - where the explaing of the project is.
 
+In order to add a new level to the game you'll need to add it
+in the rcs folder, in the file "Levels.txt".
+What you'll do is at the last level seperate your new level from it with an enter.
+And the whole level must be surounded with == , which means wall in the game, 
+since non of the objects are able to pass, this will set the limits in the game. 
+
 As mentioned the main objects in this class are the player objectwhich are King, Mage,
 Warrior and Thief.
 
@@ -51,4 +57,3 @@ a circle, I distributed each object into a Equilibrium classes by the remaining
 of the division by the amount of players there are.
 
 No bugs I'm aware of.
-
