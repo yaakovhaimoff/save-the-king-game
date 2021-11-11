@@ -1,1 +1,0 @@
-configure_file ("Levels.txt" ${CMAKE_BINARY_DIR} COPYONLY)
